@@ -11,6 +11,11 @@ use BestServedCold\LaravelZendSearch\Lucene\Query;
 
 trait SearchTrait
 {
+    /**
+     * @var array
+     */
+    protected static $searchFields = [];
+
     public static function bootSearchTrait()
     {
         $eloquent = new Eloquent(new Index(new Config), new Query(new Boolean));
@@ -30,8 +35,32 @@ trait SearchTrait
         );
     }
 
-    public function Search()
+    /**
+     * @param mixed $query
+     */
+    public static function Search($query)
     {
+        if (empty(self::$searchFields)) {
+            // @todo get better at excpetions!
+            throw new \Exception;
+        }
+
         echo "hello";
     }
+
+    public function searchString($string)
+    {
+
+    }
+
+    public function searchRaw($string)
+    {
+
+    }
+
+    public function searchQuery(Search $search)
+    {
+
+    }
+
 }

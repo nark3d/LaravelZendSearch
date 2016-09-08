@@ -14,8 +14,5 @@ class Search extends LuceneSearch
     {
         parent::__construct($index, $query);
     }
-
-
-
 }
 
