@@ -52,9 +52,9 @@ class Index
      * Extends the Lucene "open" method to create the index if it doesn't exist.
      *
      * @param  string|boolean $path
-     * @param  boolean        $forceCreate
+     * @param  boolean $forceCreate
      * @return LuceneIndex
-     * @throws ExceptionInterface
+     * @throws \Exception
      */
     private function index($path, $forceCreate = true)
     {

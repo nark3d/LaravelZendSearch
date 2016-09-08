@@ -5,7 +5,7 @@ namespace BestServedCold\LaravelZendSearch\Search;
 use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Search\Query\Wildcard as Type;
 
-final class Wildcard extends AbstractType implements SearchInterface
+final class Wildcard extends AbstractType implements TypeInterface
 {
     public function get()
     {

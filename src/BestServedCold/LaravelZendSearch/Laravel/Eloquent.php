@@ -7,40 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use ZendSearch\Lucene\Document;
 use ZendSearch\Lucene\Document\Field;
 use BestServedCold\LaravelZendSearch\Lucene\Search as LuceneSearch;
+use BestServedCold\LaravelZendSearch\Laravel\Eloquent\EloquentTrait;
 
 final class Eloquent extends LuceneSearch
 {
-    private $table = false;
-    private $key = 'id';
-
-    public function model(Model $model)
-    {
-        $this->table = $model->getTable();
-        $this->key = $model->getKey();
-    }
-
-    public function key($key)
-    {
-        $this->key = $key;
-    }
-
-    public function table($table)
-    {
-        $this->table = $table;
-    }
-
-    public function modelName($modelName)
-    {
-        $this->table = with(new $modelName)->getTable();
-        $this->key = with(new $modelName)->getKey();
-    }
-
-    private function checkForTable()
-    {
-        if (! $this->table) {
-            throw new \Exception('No table name set');
-        }
-    }
+    use EloquentTrait;
 
     public function find(Model $model)
     {
@@ -70,7 +41,7 @@ final class Eloquent extends LuceneSearch
             $document->addField($this->createField($key, $field));
         }
 
-        return $this->index->get()->addDocument($document);
+        $this->index->get()->addDocument($document);
     }
 
     public function delete(Model $model)

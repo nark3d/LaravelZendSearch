@@ -2,7 +2,7 @@
 
 namespace BestServedCold\LaravelZendSearch\Search;
 
-interface SearchInterface
+interface TypeInterface
 {
     public function get();
 }

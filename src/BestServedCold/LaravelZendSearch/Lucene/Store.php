@@ -10,7 +10,7 @@ use BestServedCold\LaravelZendSearch\Lucene\Store\Delete;
  *
  * @package BestServedCold\LaravelZendSearch\Lucene
  */
-final class Store
+class Store
 {
     /**
      * @var string

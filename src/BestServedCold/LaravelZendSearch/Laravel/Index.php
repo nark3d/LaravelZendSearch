@@ -17,7 +17,8 @@ final class Index extends LuceneIndex
     /**
      * Path
      *
-     * If the path doesn't exist, then get it from the configuration file. If that fails, throw an exception.
+     * If the path doesn't exist, then get it from the configuration file. If
+     * that fails, throw an exception.
      *
      * @param  bool $path
      * @return bool
@@ -27,6 +28,5 @@ final class Index extends LuceneIndex
     {
         $path = $path ?: $this->config->get('search.index.path');
         return parent::path($path);
-        
     }
 }

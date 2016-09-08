@@ -5,7 +5,7 @@ namespace BestServedCold\LaravelZendSearch\Laravel;
 use BestServedCold\LaravelZendSearch\Laravel\Model\Deleted;
 use BestServedCold\LaravelZendSearch\Laravel\Model\Saved;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Config\Repository;
+use Illuminate\Config\Repository as Config;
 use ZendSearch\Lucene\Search\Query\Boolean;
 use BestServedCold\LaravelZendSearch\Lucene\Query;
 
@@ -13,9 +13,8 @@ trait SearchTrait
 {
     public static function bootSearchTrait()
     {
-        $eloquent = new Eloquent(new Index(new Repository), new Query(new Boolean));
+        $eloquent = new Eloquent(new Index(new Config), new Query(new Boolean));
 
-        echo "<pre>";
         self::saved(
             function (Model $model) use ($eloquent) {
                 $eloquent->model($model);
@@ -31,4 +30,8 @@ trait SearchTrait
         );
     }
 
+    public function Search()
+    {
+        echo "hello";
+    }
 }
