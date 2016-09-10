@@ -25,8 +25,13 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->app->bind('search', function ($app) {
-            return new Search;
-        });
+        $this->publishes([
+            __DIR__.'/../../../config/search.php' => config_path('search.php'),
+        ]);
+    }
+
+    public function provides()
+    {
+        return ['search'];
     }
 }

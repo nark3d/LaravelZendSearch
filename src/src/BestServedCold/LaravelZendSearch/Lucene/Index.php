@@ -7,13 +7,14 @@ use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
 use ZendSearch\Lucene\Lucene;
 use ZendSearch\Exception\ExceptionInterface;
 use ZendSearch\Lucene\Index as LuceneIndex;
+use ZendSearch\Lucene\SearchIndexInterface;
 
 class Index
 {
     /**
      * @var LuceneIndex
      */
-    private $index;
+    private static $index;
 
     /**
      * @var string
@@ -31,9 +32,10 @@ class Index
      */
     public function open($path = false, $forceCreate = true)
     {
+        $path ? $this->path = $path : null;
         Analyzer::setDefault(new CaseInsensitive);
-        $this->index = $this->index($this->path($path), $forceCreate);
-        return $this->index;
+        self::$index = $this->index($this->path(), $forceCreate);
+        return self::$index;
     }
 
     /**
@@ -53,7 +55,7 @@ class Index
      *
      * @param  string|boolean $path
      * @param  boolean $forceCreate
-     * @return LuceneIndex
+     * @return SearchIndexInterface
      * @throws \Exception
      */
     private function index($path, $forceCreate = true)
@@ -71,18 +73,23 @@ class Index
         return $index;
     }
 
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
     /**
      * @param  bool $path
      * @return string
      * @throws \Exception
      */
-    protected function path($path = false)
+    protected function path()
     {
-        if (! $path) {
+        if (! $this->path ) {
             throw new \Exception('No path specified nor config variable set.');
         }
 
-        return $path;
+        return $this->path;
     }
 
     /**
@@ -90,6 +97,6 @@ class Index
      */
     public function get()
     {
-        return $this->index;
+        return self::$index;
     }
 }

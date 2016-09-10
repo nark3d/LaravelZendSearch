@@ -31,6 +31,7 @@ final class Delete
     public function __construct(Search $search, Index $index)
     {
         $this->search = $search;
+        $this->search->path(config('search.index.path'));
         $this->index  = $index;
     }
 

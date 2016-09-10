@@ -14,7 +14,7 @@ use ZendSearch\Lucene\Search\QueryParser;
 class Search
 {
     protected $index;
-    private $query;
+    protected $query;
     private $path;
     private $limit = 25;
 
@@ -50,15 +50,6 @@ class Search
     }
 
     /**
-     * @param $id
-     * @return mixed
-     */
-    public function findId($id)
-    {
-        return $this->where('id', $id)->hits();
-    }
-
-    /**
      * @param $limit
      * @return $this
      */
@@ -84,15 +75,18 @@ class Search
     public function raw($string)
     {
         $this->query->add(QueryParser::parse($string));
+        return $this;
     }
 
     /**
      * @param $string
      * @param bool $field
      */
-    public function phrase($string, $field = false)
+    public function phrase($string, $field = false, $offsets = null)
     {
-        $this->query->add(new Phrase(explode(' ', $string)));
+        $this->query->add(new Phrase(explode(' ', $string), $offsets, $field));
+        return $this;
+
     }
 
     /**
@@ -101,7 +95,8 @@ class Search
      */
     public function fuzzy($string, $field = false)
     {
-        $this->query->add(new Fuzzy($this->term($string, $field)));
+        $this->query->add(new Fuzzy($this->term($field, $string)));
+        return $this;
     }
 
     /**
@@ -109,7 +104,7 @@ class Search
      * @param bool $field
      * @return Term
      */
-    public function term($string, $field = false)
+    protected function term($string, $field = false)
     {
         return new Term(strtoupper($string), $field);
     }
@@ -121,7 +116,7 @@ class Search
      */
     public function wildcard($string, $field = false, $options = [])
     {
-        $this->query->add((new Wildcard($string, $field, $options))->get());
+        $this->query->add((new Wildcard($field, $string, $options))->get());
     }
 
     /**
@@ -130,11 +125,13 @@ class Search
      * @todo  Work out why the search only works if the string is uppercase...
      * @return $this|bool
      */
-    public function where($field, $string)
+    public function where($string, $field)
     {
-        return is_array($field)
+        is_array($field)
             ? $this->multiTerm($this->mapWhereArray($string, $field))
             : $this->query->add($this->singleTerm($string, $field));
+
+        return $this;
     }
 
     /**
@@ -148,7 +145,9 @@ class Search
             $multiTerm->addTerm($this->term($value, $field), $this->query->getSign());
         }
 
-        return $this->query->add($multiTerm);
+        $this->query->add($multiTerm);
+
+        return $this;
     }
 
     /**

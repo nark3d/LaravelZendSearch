@@ -9,22 +9,30 @@ trait EloquentTrait
     protected $table;
     protected $model;
     protected $key = 'id';
+    protected $uid;
 
     public function model(Model $model)
     {
-        $this->table = $model->getTable();
-        $this->key = $model->getKey();
+        $this->model = $model;
+        $this->table($model->getTable());
+        $this->key($model->getKeyName());
+        $this->uid = $this->table;
+        if (isset($this->query)) {
+            $this->uid($this->table);
+        }
         return $this;
     }
 
-    public function modelName($modelName)
+    /**
+     * Uid
+     *
+     * @param $uid
+     * @return $this
+     */
+    public function uid($uid)
     {
-        if (! class_exists($modelName) || ! $modelName instanceof Model) {
-            // @todo you need to get better at exceptions...
-            throw new \Exception;
-        }
-
-        return $this->model(new $modelName);
+        $this->where('uid', $uid);
+        return $this;
     }
 
     public function key($key)
@@ -44,7 +52,6 @@ trait EloquentTrait
             throw new \Exception('No table name set');
         }
     }
-
 
     // @todo attributes, config, etc.
 }

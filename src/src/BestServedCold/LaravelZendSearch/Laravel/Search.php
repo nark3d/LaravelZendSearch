@@ -13,6 +13,25 @@ class Search extends LuceneSearch
     public function __construct(Index $index, Query $query)
     {
         parent::__construct($index, $query);
+        $this->path(config('search.index.path'));
+    }
+
+    public function get()
+    {
+        return $this->model->whereIn($this->key, $this->hits())->get();
+    }
+
+    public function findId($id)
+    {
+        $this->where('xref_id', $id);
+    }
+
+    /**
+     * @param $string
+     * @todo  This needs to be a find all with all the search attributes.
+     */
+    public function find($string)
+    {
     }
 }
 

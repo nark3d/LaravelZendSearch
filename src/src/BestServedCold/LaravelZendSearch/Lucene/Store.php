@@ -43,11 +43,11 @@ class Store
      * Delete
      *
      * @param  integer $id
-     * @return $this
+     * @return Delete
      */
-    public function delete($id)
+    public function delete($id, $uid = false)
     {
-        return $this->delete->delete($id, $this->uid);
+        return $this->delete->delete($id, $uid ?: $this->uid);
     }
 
     /**
@@ -58,10 +58,10 @@ class Store
      * @param array $parameters
      * @return mixed
      */
-    public function insert($id, array $fields, array $parameters = [])
+    public function insert($id, array $fields, array $parameters = [], $uid = false)
     {
         $this->delete($id);
-        return $this->insert->insert($id, $fields, $parameters, $this->uid);
+        return $this->insert->insert($id, $fields, $parameters, $uid ?: $this->uid);
     }
 
     /**

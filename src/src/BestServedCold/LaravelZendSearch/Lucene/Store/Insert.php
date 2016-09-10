@@ -58,7 +58,7 @@ final class Insert
         $this->document->addField($this->field('_parameters', $this->flattenParameters($parameters), 'unIndexed'));
         $this->document = $this->addUid($this->document, $uid);
         $this->document = $this->addFields($this->document, $fields);
-        $this->index->get()->addDocument($this->document);
+        return $this->index->get()->addDocument($this->document);
     }
 
     /**
@@ -80,7 +80,7 @@ final class Insert
     private function addUid(Document $document, $uid = false)
     {
         if ($uid) {
-            $document->addField($this->field($uid, $uid));
+            $document->addField($this->field('uid', strtoupper($uid)));
         }
 
         return $document;
@@ -94,7 +94,7 @@ final class Insert
     private function addFields(Document $document, array $fields)
     {
         foreach ($fields as $key => $field) {
-            $document->addField($this->field($key, $field, 'text'));
+            $document->addField($this->field($key, strtoupper($field)));
         }
 
         return $document;

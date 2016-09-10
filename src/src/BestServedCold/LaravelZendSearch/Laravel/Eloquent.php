@@ -2,7 +2,6 @@
 
 namespace BestServedCold\LaravelZendSearch\Laravel;
 
-use BestServedCold\LaravelZendSearch\Lucene\Query;
 use Illuminate\Database\Eloquent\Model;
 use ZendSearch\Lucene\Document;
 use ZendSearch\Lucene\Document\Field;
@@ -17,7 +16,7 @@ final class Eloquent extends LuceneSearch
     {
         $this->checkForTable();
         // @todo work this out obvs
-        $this->path(storage_path('app') . '/lucene-search/index');
+//        $this->path(storage_path('app') . '/lucene-search/index');
         $this->where('id', $model->id);
         return $this->hits();
     }
