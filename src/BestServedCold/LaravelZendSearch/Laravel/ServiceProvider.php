@@ -26,7 +26,7 @@ class ServiceProvider extends Provider
     public function register()
     {
         $this->publishes([
-            __DIR__.'/../../../config/search.php' => config_path('search.php'),
+            __DIR__ . '/../../../config/search.php' => config_path('search.php'),
         ]);
     }
 
