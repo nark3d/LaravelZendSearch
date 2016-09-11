@@ -1,6 +1,6 @@
 <?php
 
-namespace BestServedCold\LaravelZendSearch\Laravel\Lucene\Store;
+namespace BestServedCold\LaravelZendSearch\Lucene\Store;
 
 use BestServedCold\LaravelZendSearch\Lucene\Index;
 use BestServedCold\LaravelZendSearch\Lucene\Search;
