@@ -17,21 +17,6 @@ trait EloquentTrait
         $this->table($model->getTable());
         $this->key($model->getKeyName());
         $this->uid = $this->table;
-        if (isset($this->query)) {
-            $this->uid($this->table);
-        }
-        return $this;
-    }
-
-    /**
-     * Uid
-     *
-     * @param $uid
-     * @return $this
-     */
-    public function uid($uid)
-    {
-        $this->where('uid', $uid);
         return $this;
     }
 

@@ -23,7 +23,13 @@ class Search extends LuceneSearch
 
     public function findId($id)
     {
-        $this->where('xref_id', $id);
+        $this->where($id, 'xref_id');
+    }
+
+    public function hits()
+    {
+        $this->where($this->uid, 'uid');
+        return parent::hits();
     }
 
     /**
@@ -32,6 +38,7 @@ class Search extends LuceneSearch
      */
     public function find($string)
     {
+
     }
 }
 

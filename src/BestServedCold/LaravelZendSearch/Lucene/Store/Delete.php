@@ -44,10 +44,10 @@ final class Delete
      */
     public function delete($id, $uid = false)
     {
-        $this->search->where('xref_id', $id);
+        $this->search->where($id, 'xref_id');
 
         if ($uid) {
-            $this->search->where('uid', $uid);
+            $this->search->where($uid, 'uid');
         }
 
         foreach ($this->search->hits() as $hit) {

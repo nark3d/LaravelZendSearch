@@ -13,7 +13,6 @@ final class Store extends LuceneStore
     public function insertModel(Model $model)
     {
         $this->deleteModel($model);
-        $this->model($model);
         $this->insert($model->id, $this->filterFields($model), $this->filterParameters($model), $this->uid);
     }
 
@@ -44,7 +43,7 @@ final class Store extends LuceneStore
 
     public function deleteModel(Model $model)
     {
-       $this->model($model);
+        return true;
     }
 
 }

@@ -131,6 +131,7 @@ class Search
             ? $this->multiTerm($this->mapWhereArray($string, $field))
             : $this->query->add($this->singleTerm($string, $field));
 
+        var_dump($this->query->getBoolean()->__toString());
         return $this;
     }
 

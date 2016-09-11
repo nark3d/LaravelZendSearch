@@ -60,7 +60,7 @@ class Store
      */
     public function insert($id, array $fields, array $parameters = [], $uid = false)
     {
-        $this->delete($id);
+        $this->delete($id, $uid);
         return $this->insert->insert($id, $fields, $parameters, $uid ?: $this->uid);
     }
 
