@@ -31,6 +31,11 @@ trait SearchTrait
         }
     }
 
+    public static function getSearchFields()
+    {
+        return self::$searchFields;
+    }
+
     private static function searchFields()
     {
         throw new \Exception("Method [searchFields] must exist and be static");
