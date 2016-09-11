@@ -10,7 +10,7 @@ use ZendSearch\Lucene\Document\Field;
 /**
  * Class Insert
  *
- * @package BestServedCold\LaravelZendSearch\Laravel\Lucene\Store
+ * @package BestServedCold\LaravelZendSearch\Lucene\Store
  */
 final class Insert
 {

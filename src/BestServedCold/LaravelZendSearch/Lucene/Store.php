@@ -2,7 +2,7 @@
 
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
-use BestServedCold\LaravelZendSearch\Laravel\Lucene\Store\Insert;
+use BestServedCold\LaravelZendSearch\Lucene\Store\Insert;
 use BestServedCold\LaravelZendSearch\Lucene\Store\Delete;
 
 /**
