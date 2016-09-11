@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\App;
 trait SearchTrait
 {
     private static $searchFields = [];
+    private static $searchParameters = [];
 
-    private static function checks()
+    private static function setup()
     {
         if (! is_subclass_of(static::class, Model::class)) {
             throw new \Exception(
@@ -17,23 +18,7 @@ trait SearchTrait
             );
         }
 
-        if (
-            ! method_exists(get_class(), 'searchFields') ||
-            ! (new \Reflectionmethod(get_class(), 'searchFields'))->isStatic()
-        ) {
-            throw new \Exception('Method [searchFields] must exist and be static');
-        }
-
         static::searchFields();
-
-        if (! isset(self::$searchFields) || ! is_array(self::$searchFields) || empty(self::$searchFields)) {
-            throw new \Exception('$searchFields must exist, must be an array and cannot be empty');
-        }
-    }
-
-    public static function getSearchFields()
-    {
-        return self::$searchFields;
     }
 
     private static function searchFields()
@@ -45,10 +30,25 @@ trait SearchTrait
     {
         self::$searchFields = $fields;
     }
-    
+
+    public static function getSearchFields()
+    {
+        return self::$searchFields;
+    }
+
+    public static function setSearchParameters(array $parameters)
+    {
+        self::$searchParameters = $parameters;
+    }
+
+    public static function getSearchParameter()
+    {
+        return self::$searchParameters;
+    }
+
     public static function search()
     {
-        self::checks();
+        self::setup();
 
         $search = App::make(Search::class);
         $search->model(new static);
@@ -58,7 +58,7 @@ trait SearchTrait
 
     public static function bootSearchTrait()
     {
-        self::checks();
+        self::setup();
 
         $store = App::make(Store::class);
 

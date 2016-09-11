@@ -12,8 +12,12 @@ final class Store extends LuceneStore
 
     public function insertModel(Model $model)
     {
-        $this->deleteModel($model);
         $this->insert($model->id, $this->filterFields($model), $this->filterParameters($model), $this->uid);
+    }
+
+    public function deleteModel(Model $model)
+    {
+        $this->delete($model->id, $this->uid);
     }
 
     private function filterFields($model)
@@ -40,10 +44,4 @@ final class Store extends LuceneStore
     {
         return array_intersect_key($haystack, array_flip($needle));
     }
-
-    public function deleteModel(Model $model)
-    {
-        return true;
-    }
-
 }
