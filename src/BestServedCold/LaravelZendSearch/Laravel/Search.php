@@ -2,7 +2,6 @@
 
 namespace BestServedCold\LaravelZendSearch\Laravel;
 
-use BestServedCold\LaravelZendSearch\Laravel\Eloquent\EloquentTrait;
 use BestServedCold\LaravelZendSearch\Lucene\Query;
 use BestServedCold\LaravelZendSearch\Lucene\Search as LuceneSearch;
 
