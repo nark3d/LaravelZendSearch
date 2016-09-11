@@ -41,7 +41,7 @@ trait SearchTrait
         self::$searchParameters = $parameters;
     }
 
-    public static function getSearchParameter()
+    public static function getSearchParameters()
     {
         return self::$searchParameters;
     }
