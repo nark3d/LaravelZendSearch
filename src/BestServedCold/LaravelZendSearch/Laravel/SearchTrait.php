@@ -7,19 +7,40 @@ use Illuminate\Support\Facades\App;
 
 trait SearchTrait
 {
+    private static $searchFields = [];
+
     private static function checks()
     {
-        if (! isset(self::$searchFields) || ! is_array(self::$searchFields) || empty(self::$searchFields)) {
-            throw new \Exception('$searchFields must exist, must be an array and cannot be empty');
-        }
-
         if (! is_subclass_of(static::class, Model::class)) {
             throw new \Exception(
                 'SearchTrait must only be used with Eloquent models, [' . get_called_class() . '] used'
             );
         }
+
+        if (
+            ! method_exists(get_class(), 'searchFields') ||
+            ! (new \Reflectionmethod(get_class(), 'searchFields'))->isStatic()
+        ) {
+            throw new \Exception('Method [searchFields] must exist and be static');
+        }
+
+        static::searchFields();
+
+        if (! isset(self::$searchFields) || ! is_array(self::$searchFields) || empty(self::$searchFields)) {
+            throw new \Exception('$searchFields must exist, must be an array and cannot be empty');
+        }
     }
 
+    private static function searchFields()
+    {
+        throw new \Exception("Method [searchFields] must exist and be static");
+    }
+
+    public function setSearchFields(array $fields)
+    {
+        self::$searchFields = $fields;
+    }
+    
     public static function search()
     {
         self::checks();
