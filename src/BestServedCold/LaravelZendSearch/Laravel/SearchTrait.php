@@ -41,7 +41,7 @@ trait SearchTrait
         throw new \Exception("Method [searchFields] must exist and be static");
     }
 
-    public function setSearchFields(array $fields)
+    public static function setSearchFields(array $fields)
     {
         self::$searchFields = $fields;
     }
