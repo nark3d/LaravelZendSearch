@@ -18,13 +18,13 @@ final class Store extends LuceneStore
 
     private function filterFields($model)
     {
-        return $this->filterKeysFromArray($model->attributesToArray(), $model::$searchFields);
+        return $this->filterKeysFromArray($model->attributesToArray(), $model::getSearchFields());
     }
 
     private function filterParameters($model)
     {
         if (isset($model::$searchParameters)) {
-            return $this->filterKeysFromArray($model->attributesToArray(), $model::$searchFields);
+            return $this->filterKeysFromArray($model->attributesToArray(), $model::$parameters);
         }
 
         return [];
