@@ -26,8 +26,8 @@ final class Store extends LuceneStore
 
     private function filterParameters($model)
     {
-        if (isset($model::$searchParameters)) {
-            return $this->filterKeysFromArray($model->attributesToArray(), $model::$parameters);
+        if (! empty($model::getSearchParameters())) {
+            return $this->filterKeysFromArray($model->attributesToArray(), $model::getSearchParameters());
         }
 
         return [];
