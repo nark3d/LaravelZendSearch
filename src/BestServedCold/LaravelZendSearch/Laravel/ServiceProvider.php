@@ -39,19 +39,19 @@ class ServiceProvider extends Provider
         );
 
         $this->app->singleton(
-            'command.search.rebuild', function () {
+            'command.search.rebuild', function() {
                 return new RebuildCommand;
             }
         );
 
         $this->app->singleton(
-            'command.search.clear', function () {
+            'command.search.clear', function() {
                 return new ClearCommand;
             }
         );
 
         $this->app->singleton(
-            'command.search.optimise', function () {
+            'command.search.optimise', function() {
                 return new OptimiseCommand;
             }
         );

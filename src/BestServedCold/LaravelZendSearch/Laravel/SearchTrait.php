@@ -82,13 +82,13 @@ trait SearchTrait
         $store = App::make(Store::class);
 
         self::saved(
-            function (Model $model) use ($store) {
+            function(Model $model) use ($store) {
                 self::insertCallback($model, $store);
             }
         );
 
         self::deleting(
-            function (Model $model) use ($store) {
+            function(Model $model) use ($store) {
                 self::deleteCallback($model, $store);
             }
         );
