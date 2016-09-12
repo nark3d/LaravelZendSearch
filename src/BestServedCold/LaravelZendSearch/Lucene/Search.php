@@ -8,6 +8,7 @@ use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\Query\Phrase;
 use ZendSearch\Lucene\Search\Query\Term as QueryTerm;
+use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Search\QueryParser;
 
 class Search
@@ -130,7 +131,6 @@ class Search
             ? $this->multiTerm($this->mapWhereArray($string, $field))
             : $this->query->add($this->singleTerm($string, $field));
 
-        var_dump($this->query->getBoolean()->__toString());
         return $this;
     }
 
@@ -188,8 +188,8 @@ class Search
      */
     private function mapIds(array $array)
     {
-        return array_map(function($v) {
-            return $v->id;
+        return array_map(function(QueryHit $hit) {
+            return $hit->id;
         }, $array);
     }
 }

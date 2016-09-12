@@ -1,6 +1,8 @@
 {
     "name": "best-served-cold/laravel-zendsearch",
     "description": "ZendSearch implementation for Laravel",
+    "keywords": ["laravel", "lucene", "zendsearch", "eloquent", "search"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Adam Lewis",

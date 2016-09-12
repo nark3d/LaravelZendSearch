@@ -18,7 +18,7 @@ class RebuildCommand extends Command
         $bob = get_declared_classes();
 
         foreach ($bob as $class) {
-            var_dump($class);
+//            var_dump($class);
         }
     }
 

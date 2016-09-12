@@ -15,11 +15,6 @@ use ZendSearch\Lucene\Document\Field;
 final class Insert
 {
     /**
-     * @var Search
-     */
-    private $search;
-
-    /**
      * @var Index
      */
     private $index;
