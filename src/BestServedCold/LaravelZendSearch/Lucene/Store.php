@@ -33,8 +33,9 @@ class Store
      * @param Delete $delete
      * @param Insert $insert
      */
-    public function __construct(Delete $delete, Insert $insert)
+    public function __construct(Delete $delete, Insert $insert, Index $index)
     {
+        $this->index  = $index;
         $this->delete = $delete;
         $this->insert = $insert;
     }
@@ -60,9 +61,9 @@ class Store
      * @param  bool  $uid
      * @return mixed
      */
-    public function insert($id, array $fields, array $parameters = [ ], $uid = false)
+    public function insert($id, array $fields, array $parameters = [ ], $uid = false, $deleteFirst = true)
     {
-        $this->delete($id, $uid);
+        $deleteFirst ? $this->delete($id, $uid) : null;
         return $this->insert->insert($id, $fields, $parameters, $uid ?: $this->uid);
     }
 

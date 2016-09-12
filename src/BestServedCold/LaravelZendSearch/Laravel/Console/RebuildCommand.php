@@ -2,7 +2,9 @@
 
 namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
+use BestServedCold\LaravelZendSearch\Laravel\Store;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Nqxcode\LuceneSearch\Search;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
@@ -17,51 +19,55 @@ class RebuildCommand extends Command
     protected $name = 'search:rebuild';
     protected $description = 'Rebuild the search index';
 
+    private $models = [];
+
     public function getModels()
     {
-        $bob = get_declared_classes();
-
-        foreach ($bob as $class) {
-            //            var_dump($class);
+        foreach (get_declared_classes() as $class) {
+            if (is_subclass_of($class, Model::class) && method_exists($class, 'searchFields')) {
+                $this->models[] = $class;
+            }
         }
     }
 
     public function fire()
     {
         $this->getModels();
+
         if (!$this->option('verbose')) {
             $this->output = new NullOutput;
         }
 
-
-
-        $this->call('search:clear');
+        $this->call('search:destroy', ['--verbose' => $this->option('verbose')]);
 
         /**
- * @var Search $search 
-*/
-        $search = App::make('search');
+         * @var Search $search 
+        */
+        $store = App::make(Store::class);
 
-        $modelRepositories = $search->config()->repositories();
+        if (empty($this->models)) {
+            $this->error('No models configured for search.');
+        } else {
+            foreach ($this->models as $model) {
+                $object = App::make($model);
 
-        if (count($modelRepositories) > 0) {
-            foreach ($modelRepositories as $modelRepository) {
-                $this->info('Creating index for model: "' . get_class($modelRepository) . '"');
+                $this->info('Creating index for model [' . $model . ']');
 
-                $count = $modelRepository->count();
+                $count = $object->count();
 
-                if ($count === 0) {
-                    $this->comment(' No available models found. ');
+                if ($object->count() === 0) {
+                    $this->comment('No records for model [' . $model . ']');
                     continue;
                 }
 
                 $progress = new ProgressBar($this->getOutput(), $count);
                 $progress->start();
 
-                $modelRepository->chunk(
-                    1000, function ($chunk) use ($progress, $search) {
-                        foreach ($chunk as $model) {
-                            $search->update($model);
+
+                $object->chunk(1000, function($chunk) use ($progress, $store) {
+                        foreach ($chunk as $record) {
+                            error_reporting(E_ALL); ini_set('display_errors', true);
+                            $store->insertModel($record, false);
                             $progress->advance();
                         }
                     }
@@ -69,9 +75,12 @@ class RebuildCommand extends Command
 
                 $progress->finish();
             }
-            $this->info(PHP_EOL . 'Operation is fully complete!');
-        } else {
-            $this->error('No models found in config.php file..');
+
+            $this->info(PHP_EOL);
+
+            $this->call('search:optimise', ['--verbose' => $this->option('verbose')]);
+
+            $this->info(PHP_EOL . 'Search engine rebuild complete.');
         }
     }
 }

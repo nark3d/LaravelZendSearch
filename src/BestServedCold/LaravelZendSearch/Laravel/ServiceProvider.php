@@ -4,7 +4,7 @@ namespace BestServedCold\LaravelZendSearch\Laravel;
 
 use Illuminate\Support\ServiceProvider as Provider;
 use BestServedCold\LaravelZendSearch\Laravel\Console\RebuildCommand;
-use BestServedCold\LaravelZendSearch\Laravel\Console\ClearCommand;
+use BestServedCold\LaravelZendSearch\Laravel\Console\DestroyCommand;
 use BestServedCold\LaravelZendSearch\Laravel\Console\OptimiseCommand;
 
 /**
@@ -39,24 +39,24 @@ class ServiceProvider extends Provider
         );
 
         $this->app->singleton(
-            'command.search.rebuild', function () {
+            'command.search.rebuild', function() {
                 return new RebuildCommand;
             }
         );
 
         $this->app->singleton(
-            'command.search.clear', function () {
-                return new ClearCommand;
+            'command.search.destroy', function() {
+                return new DestroyCommand;
             }
         );
 
         $this->app->singleton(
-            'command.search.optimise', function () {
+            'command.search.optimise', function() {
                 return new OptimiseCommand;
             }
         );
 
-        $this->commands([ 'command.search.rebuild', 'command.search.optimise', 'command.search.clear' ]);
+        $this->commands([ 'command.search.rebuild', 'command.search.optimise', 'command.search.destroy' ]);
     }
 
 
@@ -65,6 +65,6 @@ class ServiceProvider extends Provider
      */
     public function provides()
     {
-        return [ 'search', 'command.search.rebuild', 'command.search.optimise', 'command.search.clear' ];
+        return [ 'search', 'command.search.rebuild', 'command.search.optimise', 'command.search.destroy' ];
     }
 }

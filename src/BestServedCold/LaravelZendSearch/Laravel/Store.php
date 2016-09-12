@@ -4,6 +4,8 @@ namespace BestServedCold\LaravelZendSearch\Laravel;
 
 use BestServedCold\LaravelZendSearch\Lucene\Store as LuceneStore;
 use Illuminate\Database\Eloquent\Model;
+use BestServedCold\LaravelZendSearch\Lucene\Store\Delete;
+use BestServedCold\LaravelZendSearch\Lucene\Store\Insert;
 
 /**
  * Class Store
@@ -13,12 +15,23 @@ final class Store extends LuceneStore
 {
     use EloquentTrait;
 
+    public function __construct(Delete $delete, Insert $insert, Index $index)
+    {
+        parent::__construct($delete, $insert, $index);
+    }
+
     /**
      * @param Model $model
      */
-    public function insertModel(Model $model)
+    public function insertModel(Model $model, $deleteFirst = true)
     {
-        $this->insert($model->id, $this->filterFields($model), $this->filterParameters($model), $this->uid);
+        return $this->insert(
+            $model->id,
+            $this->filterFields($model),
+            $this->filterParameters($model),
+            $this->uid,
+            $deleteFirst
+        );
     }
 
     /**
