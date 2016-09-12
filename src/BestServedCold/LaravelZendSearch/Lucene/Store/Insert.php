@@ -27,8 +27,8 @@ final class Insert
     /**
      * Insert constructor.
      *
-     * @param Search $search
-     * @param Index $index
+     * @param Search   $search
+     * @param Index    $index
      * @param Document $document
      */
     public function __construct(Search $search, Index $index, Document $document)
@@ -42,8 +42,8 @@ final class Insert
      * Insert
      *
      * @param  $id
-     * @param  array       $fields     fields that are indexed
-     * @param  array       $parameters fields that aren't indexed
+     * @param  array          $fields     fields that are indexed
+     * @param  array          $parameters fields that aren't indexed
      * @param  boolean|string $uid        unique identifier, if required
      * @return mixed
      */

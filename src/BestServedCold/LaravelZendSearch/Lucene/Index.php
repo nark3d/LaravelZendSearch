@@ -24,8 +24,8 @@ class Index
     /**
      * Open
      *
-     * @param bool $path
-     * @param bool $forceCreate
+     * @param  bool $path
+     * @param  bool $forceCreate
      * @return \ZendSearch\Lucene\SearchIndexInterface
      * @throws ExceptionInterface
      * @throws \Exception
@@ -54,7 +54,7 @@ class Index
      * Extends the Lucene "open" method to create the index if it doesn't exist.
      *
      * @param  string|boolean $path
-     * @param  boolean $forceCreate
+     * @param  boolean        $forceCreate
      * @return SearchIndexInterface
      * @throws \Exception
      */

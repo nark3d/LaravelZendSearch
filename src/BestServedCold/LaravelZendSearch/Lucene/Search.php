@@ -20,6 +20,7 @@ class Search
 
     /**
      * Search constructor.
+     *
      * @param Index $index
      * @param Query $query
      */
@@ -71,6 +72,7 @@ class Search
 
     /**
      * @param $string
+     * @return $this
      */
     public function raw($string)
     {
@@ -80,7 +82,10 @@ class Search
 
     /**
      * @param $string
-     * @param bool $field
+     * @param bool   $field
+     * @param null   $offsets
+     * @return $this
+     * @return $this
      */
     public function phrase($string, $field = false, $offsets = null)
     {
@@ -91,7 +96,8 @@ class Search
 
     /**
      * @param $string
-     * @param bool $field
+     * @param bool   $field
+     * @return $this
      */
     public function fuzzy($string, $field = false)
     {
@@ -101,7 +107,7 @@ class Search
 
     /**
      * @param $string
-     * @param bool $field
+     * @param bool   $field
      * @return Term
      */
     protected function term($string, $field = false)
@@ -111,8 +117,8 @@ class Search
 
     /**
      * @param $string
-     * @param bool $field
-     * @param array $options
+     * @param bool   $field
+     * @param array  $options
      */
     public function wildcard($string, $field = false, $options = [ ])
     {
@@ -121,9 +127,9 @@ class Search
 
     /**
      * @param $string
-     * @param string $field
-     * @todo  Work out why the search only works if the string is uppercase...
+     * @param bool|string $field
      * @return $this|bool
+     * @todo  Work out why the search only works if the string is uppercase...
      */
     public function where($string, $field = false)
     {
@@ -152,15 +158,17 @@ class Search
 
     /**
      * @param $string
-     * @param array $array
+     * @param array  $array
      * @return mixed
      * @todo abstract this out
      */
     private function mapWhereArray($string, array $array)
     {
-        return array_map(function() use ($string) {
-            return $string;
-        }, array_flip($array));
+        return array_map(
+            function () use ($string) {
+                return $string;
+            }, array_flip($array)
+        );
     }
 
     /**
@@ -188,8 +196,10 @@ class Search
      */
     private function mapIds(array $array)
     {
-        return array_map(function(QueryHit $hit) {
-            return $hit->id;
-        }, $array);
+        return array_map(
+            function (QueryHit $hit) {
+                return $hit->id;
+            }, $array
+        );
     }
 }

@@ -18,7 +18,7 @@ class RebuildCommand extends Command
         $bob = get_declared_classes();
 
         foreach ($bob as $class) {
-//            var_dump($class);
+            //            var_dump($class);
         }
     }
 
@@ -33,7 +33,9 @@ class RebuildCommand extends Command
 
         $this->call('search:clear');
 
-        /** @var Search $search */
+        /**
+ * @var Search $search 
+*/
         $search = App::make('search');
 
         $modelRepositories = $search->config()->repositories();
@@ -52,12 +54,14 @@ class RebuildCommand extends Command
                 $progress = new ProgressBar($this->getOutput(), $count);
                 $progress->start();
 
-                $modelRepository->chunk(1000, function($chunk) use ($progress, $search) {
-                    foreach ($chunk as $model) {
-                        $search->update($model);
-                        $progress->advance();
+                $modelRepository->chunk(
+                    1000, function ($chunk) use ($progress, $search) {
+                        foreach ($chunk as $model) {
+                            $search->update($model);
+                            $progress->advance();
+                        }
                     }
-                });
+                );
 
                 $progress->finish();
             }

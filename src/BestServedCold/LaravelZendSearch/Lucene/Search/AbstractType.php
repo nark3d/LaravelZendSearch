@@ -10,6 +10,8 @@ abstract class AbstractType
 
     /**
      * @param boolean $string
+     * @param bool    $field
+     * @param array   $options
      */
     public function __construct($string, $field = false, $options = [])
     {

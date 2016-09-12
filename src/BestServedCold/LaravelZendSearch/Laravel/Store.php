@@ -21,6 +21,7 @@ final class Store extends LuceneStore
 
     /**
      * @param Model $model
+     * @return array
      */
     private function filterFields($model)
     {
@@ -29,6 +30,7 @@ final class Store extends LuceneStore
 
     /**
      * @param Model $model
+     * @return array
      */
     private function filterParameters($model)
     {

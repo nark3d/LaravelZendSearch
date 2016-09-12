@@ -35,6 +35,7 @@ class Search extends LuceneSearch
     /**
      * @param $string
      * @todo  This needs to be a find all with all the search attributes.
+     * @return $this
      */
     public function find($string)
     {

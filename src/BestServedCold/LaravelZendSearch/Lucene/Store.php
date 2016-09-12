@@ -43,6 +43,7 @@ class Store
      * Delete
      *
      * @param  integer $id
+     * @param  bool    $uid
      * @return Delete
      */
     public function delete($id, $uid = false)
@@ -53,9 +54,10 @@ class Store
     /**
      * Insert
      *
-     * @param $id
-     * @param array $fields
-     * @param array $parameters
+     * @param  $id
+     * @param  array $fields
+     * @param  array $parameters
+     * @param  bool  $uid
      * @return mixed
      */
     public function insert($id, array $fields, array $parameters = [ ], $uid = false)
@@ -67,7 +69,7 @@ class Store
     /**
      * Uid
      *
-     * @param $uid
+     * @param  $uid
      * @return $this
      */
     public function uid($uid)

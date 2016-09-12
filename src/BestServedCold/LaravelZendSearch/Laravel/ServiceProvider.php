@@ -12,7 +12,7 @@ class ServiceProvider extends Provider
     /**
      * Bootstrap the application services.
      *
-     * @return void
+     * @return             void
      * @codeCoverageIgnore
      */
     public function boot()
@@ -23,26 +23,34 @@ class ServiceProvider extends Provider
     /**
      * Register the application services.
      *
-     * @return void
+     * @return             void
      * @codeCoverageIgnore
      */
     public function register()
     {
-        $this->publishes([
+        $this->publishes(
+            [
             __DIR__ . '/../../../config/search.php' => config_path('search.php'),
-        ]);
+            ]
+        );
 
-        $this->app->singleton('command.search.rebuild', function() {
-            return new RebuildCommand;
-        });
+        $this->app->singleton(
+            'command.search.rebuild', function () {
+                return new RebuildCommand;
+            }
+        );
 
-        $this->app->singleton('command.search.clear', function() {
-            return new ClearCommand;
-        });
+        $this->app->singleton(
+            'command.search.clear', function () {
+                return new ClearCommand;
+            }
+        );
 
-        $this->app->singleton('command.search.optimise', function() {
-            return new OptimiseCommand;
-        });
+        $this->app->singleton(
+            'command.search.optimise', function () {
+                return new OptimiseCommand;
+            }
+        );
 
         $this->commands([ 'command.search.rebuild', 'command.search.optimise', 'command.search.clear' ]);
     }

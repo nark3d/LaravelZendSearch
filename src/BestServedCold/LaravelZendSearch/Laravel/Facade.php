@@ -7,10 +7,11 @@ class Facade extends \Illuminate\Support\Facades\Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
+     * @return             string
      * @codeCoverageIgnore
      */
-    protected static function getFacadeAccessor() {
+    protected static function getFacadeAccessor() 
+    {
         return 'search';
     }
 }
