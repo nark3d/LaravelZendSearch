@@ -38,7 +38,7 @@ class RebuildCommand extends Command
         $this->call('search:clear');
 
         /**
- * @var Search $search 
+         * @var Search $search 
 */
         $search = App::make('search');
 
@@ -59,7 +59,7 @@ class RebuildCommand extends Command
                 $progress->start();
 
                 $modelRepository->chunk(
-                    1000, function ($chunk) use ($progress, $search) {
+                    1000, function($chunk) use ($progress, $search) {
                         foreach ($chunk as $model) {
                             $search->update($model);
                             $progress->advance();
