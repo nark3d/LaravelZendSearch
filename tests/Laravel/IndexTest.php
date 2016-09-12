@@ -14,18 +14,10 @@ final class IndexTest extends TestCase
         $this->index = new Index($this->app->config);
     }
 
-    public function testOpenNoConfig()
+    public function testContructor()
     {
-        Config::set('search.index.path', false);
-        $this->setExpectedException(\Exception::class);
-        try {
-            $this->index->open();
-        } catch (\Exception $e) {
-            $this->assertContains('No path specified nor config variable set.', $e->getMessage());
-            throw $e;
-        }
+        $path = $this->reflectionProperty($this->index, 'path');
+        $this->assertTrue(is_string($path));
     }
-    
-    
 
 }

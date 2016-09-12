@@ -1,6 +1,6 @@
 <?php
 
-namespace BestServedCold\LaravelZendSearch\Laravel;
+namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\TestCase;
 

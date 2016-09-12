@@ -125,7 +125,7 @@ class Search
      * @todo  Work out why the search only works if the string is uppercase...
      * @return $this|bool
      */
-    public function where($string, $field)
+    public function where($string, $field = false)
     {
         is_array($field)
             ? $this->multiTerm($this->mapWhereArray($string, $field))
@@ -169,7 +169,7 @@ class Search
      * @param $field
      * @return QueryTerm
      */
-    public function singleTerm($string, $field)
+    public function singleTerm($string, $field = false)
     {
         return new QueryTerm($this->term($string, $field));
     }
