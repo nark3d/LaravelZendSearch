@@ -58,7 +58,7 @@ class Store
      * @param array $parameters
      * @return mixed
      */
-    public function insert($id, array $fields, array $parameters = [], $uid = false)
+    public function insert($id, array $fields, array $parameters = [ ], $uid = false)
     {
         $this->delete($id, $uid);
         return $this->insert->insert($id, $fields, $parameters, $uid ?: $this->uid);

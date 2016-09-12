@@ -6,9 +6,7 @@ use Illuminate\Console\Command;
 use Nqxcode\LuceneSearch\Search;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
-
 use App;
-use Config;
 
 class RebuildCommand extends Command
 {
@@ -54,7 +52,7 @@ class RebuildCommand extends Command
                 $progress = new ProgressBar($this->getOutput(), $count);
                 $progress->start();
 
-                $modelRepository->chunk(1000, function ($chunk) use ($progress, $search) {
+                $modelRepository->chunk(1000, function($chunk) use ($progress, $search) {
                     foreach ($chunk as $model) {
                         $search->update($model);
                         $progress->advance();

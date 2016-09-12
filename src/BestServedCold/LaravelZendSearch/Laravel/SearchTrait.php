@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\App;
 
 trait SearchTrait
 {
-    private static $searchFields = [];
-    private static $searchParameters = [];
+    private static $searchFields = [ ];
+    private static $searchParameters = [ ];
 
     private static function setup()
     {
-        if (! is_subclass_of(static::class, Model::class)) {
+        if (!is_subclass_of(static::class, Model::class)) {
             throw new \Exception(
                 'SearchTrait must only be used with Eloquent models, [' . get_called_class() . '] used'
             );
@@ -63,13 +63,13 @@ trait SearchTrait
         $store = App::make(Store::class);
 
         self::saved(
-            function (Model $model) use ($store) {
+            function(Model $model) use ($store) {
                 self::insertCallback($model, $store);
             }
         );
 
         self::deleting(
-            function (Model $model) use ($store) {
+            function(Model $model) use ($store) {
                 self::deleteCallback($model, $store);
             }
         );
