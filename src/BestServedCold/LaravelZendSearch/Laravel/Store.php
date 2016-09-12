@@ -5,15 +5,25 @@ namespace BestServedCold\LaravelZendSearch\Laravel;
 use BestServedCold\LaravelZendSearch\Lucene\Store as LuceneStore;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Store
+ * @package BestServedCold\LaravelZendSearch\Laravel
+ */
 final class Store extends LuceneStore
 {
     use EloquentTrait;
 
+    /**
+     * @param Model $model
+     */
     public function insertModel(Model $model)
     {
         $this->insert($model->id, $this->filterFields($model), $this->filterParameters($model), $this->uid);
     }
 
+    /**
+     * @param Model $model
+     */
     public function deleteModel(Model $model)
     {
         $this->delete($model->id, $this->uid);

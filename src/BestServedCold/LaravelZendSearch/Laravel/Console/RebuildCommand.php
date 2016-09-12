@@ -8,6 +8,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
 use App;
 
+/**
+ * Class RebuildCommand
+ * @package BestServedCold\LaravelZendSearch\Laravel\Console
+ */
 class RebuildCommand extends Command
 {
     protected $name = 'search:rebuild';

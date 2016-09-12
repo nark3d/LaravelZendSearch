@@ -11,6 +11,10 @@ use ZendSearch\Lucene\Search\Query\Term as QueryTerm;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Search\QueryParser;
 
+/**
+ * Class Search
+ * @package BestServedCold\LaravelZendSearch\Lucene
+ */
 class Search
 {
     protected $index;

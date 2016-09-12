@@ -9,6 +9,10 @@ use ZendSearch\Exception\ExceptionInterface;
 use ZendSearch\Lucene\Index as LuceneIndex;
 use ZendSearch\Lucene\SearchIndexInterface;
 
+/**
+ * Class Index
+ * @package BestServedCold\LaravelZendSearch\Lucene
+ */
 class Index
 {
     /**
@@ -73,6 +77,9 @@ class Index
         return $index;
     }
 
+    /**
+     * @param $path
+     */
     public function setPath($path)
     {
         $this->path = $path;

@@ -2,6 +2,10 @@
 
 namespace BestServedCold\LaravelZendSearch\Search;
 
+/**
+ * Class AbstractType
+ * @package BestServedCold\LaravelZendSearch\Search
+ */
 abstract class AbstractType
 {
     protected $string;

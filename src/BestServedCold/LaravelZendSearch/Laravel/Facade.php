@@ -2,6 +2,10 @@
 
 namespace BestServedCold\LaravelZendSearch\Laravel;
 
+/**
+ * Class Facade
+ * @package BestServedCold\LaravelZendSearch\Laravel
+ */
 class Facade extends \Illuminate\Support\Facades\Facade
 {
     /**

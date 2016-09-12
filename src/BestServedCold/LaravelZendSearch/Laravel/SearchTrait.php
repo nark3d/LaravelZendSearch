@@ -5,6 +5,10 @@ namespace BestServedCold\LaravelZendSearch\Laravel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
+/**
+ * Class SearchTrait
+ * @package BestServedCold\LaravelZendSearch\Laravel
+ */
 trait SearchTrait
 {
     private static $searchFields = [ ];
@@ -26,26 +30,41 @@ trait SearchTrait
         throw new \Exception("Method [searchFields] must exist and be static");
     }
 
+    /**
+     * @param array $fields
+     */
     public static function setSearchFields(array $fields)
     {
         self::$searchFields = $fields;
     }
 
+    /**
+     * @return array
+     */
     public static function getSearchFields()
     {
         return self::$searchFields;
     }
 
+    /**
+     * @param array $parameters
+     */
     public static function setSearchParameters(array $parameters)
     {
         self::$searchParameters = $parameters;
     }
 
+    /**
+     * @return array
+     */
     public static function getSearchParameters()
     {
         return self::$searchParameters;
     }
 
+    /**
+     * @return mixed
+     */
     public static function search()
     {
         self::setup();
@@ -75,12 +94,20 @@ trait SearchTrait
         );
     }
 
+    /**
+     * @param Model $model
+     * @param Store $store
+     */
     private static function insertCallback(Model $model, Store $store)
     {
         $store->model($model);
         $store->insertModel($model);
     }
 
+    /**
+     * @param Model $model
+     * @param Store $store
+     */
     private static function deleteCallback(Model $model, Store $store)
     {
         $store->model($model);

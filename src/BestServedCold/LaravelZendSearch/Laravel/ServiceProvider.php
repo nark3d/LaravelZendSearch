@@ -7,6 +7,10 @@ use BestServedCold\LaravelZendSearch\Laravel\Console\RebuildCommand;
 use BestServedCold\LaravelZendSearch\Laravel\Console\ClearCommand;
 use BestServedCold\LaravelZendSearch\Laravel\Console\OptimiseCommand;
 
+/**
+ * Class ServiceProvider
+ * @package BestServedCold\LaravelZendSearch\Laravel
+ */
 class ServiceProvider extends Provider
 {
     /**
@@ -56,6 +60,9 @@ class ServiceProvider extends Provider
     }
 
 
+    /**
+     * @return array
+     */
     public function provides()
     {
         return [ 'search', 'command.search.rebuild', 'command.search.optimise', 'command.search.clear' ];
