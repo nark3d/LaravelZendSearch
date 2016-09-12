@@ -40,9 +40,6 @@ class RebuildCommand extends Command
 
         $this->call('search:destroy', ['--verbose' => $this->option('verbose')]);
 
-        /**
-         * @var Search $search 
-        */
         $store = App::make(Store::class);
 
         if (empty($this->models)) {
@@ -62,7 +59,6 @@ class RebuildCommand extends Command
 
                 $progress = new ProgressBar($this->getOutput(), $count);
                 $progress->start();
-
 
                 $object->chunk(1000, function($chunk) use ($progress, $store) {
                         foreach ($chunk as $record) {
