@@ -8,6 +8,9 @@ abstract class AbstractType
     protected $field = false;
     protected $Options = [];
 
+    /**
+     * @param boolean $string
+     */
     public function __construct($string, $field = false, $options = [])
     {
         $this->string  = $string;

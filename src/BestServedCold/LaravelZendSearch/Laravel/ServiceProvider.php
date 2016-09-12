@@ -32,24 +32,24 @@ class ServiceProvider extends Provider
             __DIR__ . '/../../../config/search.php' => config_path('search.php'),
         ]);
 
-        $this->app->singleton('command.search.rebuild', function () {
+        $this->app->singleton('command.search.rebuild', function() {
             return new RebuildCommand;
         });
 
-        $this->app->singleton('command.search.clear', function () {
+        $this->app->singleton('command.search.clear', function() {
             return new ClearCommand;
         });
 
-        $this->app->singleton('command.search.optimise', function () {
+        $this->app->singleton('command.search.optimise', function() {
             return new OptimiseCommand;
         });
 
-        $this->commands(['command.search.rebuild', 'command.search.optimise', 'command.search.clear']);
+        $this->commands([ 'command.search.rebuild', 'command.search.optimise', 'command.search.clear' ]);
     }
 
 
     public function provides()
     {
-        return ['search', 'command.search.rebuild', 'command.search.optimise', 'command.search.clear'];
+        return [ 'search', 'command.search.rebuild', 'command.search.optimise', 'command.search.clear' ];
     }
 }

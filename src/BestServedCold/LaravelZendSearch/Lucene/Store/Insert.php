@@ -49,10 +49,10 @@ final class Insert
      * @param  $id
      * @param  array       $fields     fields that are indexed
      * @param  array       $parameters fields that aren't indexed
-     * @param  boolean|int $uid        unique identifier, if required
+     * @param  boolean|string $uid        unique identifier, if required
      * @return mixed
      */
-    public function insert($id, array $fields, array $parameters = [], $uid = false)
+    public function insert($id, array $fields, array $parameters = [ ], $uid = false)
     {
         $this->document->addField($this->field('xref_id', $id));
         $this->document->addField($this->field('_parameters', $this->flattenParameters($parameters), 'unIndexed'));
