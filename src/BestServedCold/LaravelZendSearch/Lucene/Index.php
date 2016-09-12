@@ -39,7 +39,7 @@ class Index
     }
 
     /**
-     * @param $limit
+     * @param integer $limit
      * @return $this
      */
     public function limit($limit)
@@ -79,13 +79,12 @@ class Index
     }
 
     /**
-     * @param  bool $path
      * @return string
      * @throws \Exception
      */
     protected function path()
     {
-        if (! $this->path ) {
+        if (!$this->path) {
             throw new \Exception('No path specified nor config variable set.');
         }
 

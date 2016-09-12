@@ -4,7 +4,6 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\Search\Wildcard;
 use ZendSearch\Lucene\Index\Term;
-use ZendSearch\Lucene\Search\Query\AbstractQuery;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\Query\Phrase;
@@ -21,7 +20,7 @@ class Search
     /**
      * Search constructor.
      * @param Index $index
-     * @param \BestServedCold\LaravelZendSearch\Query $query
+     * @param Query $query
      */
     public function __construct(Index $index, Query $query)
     {
@@ -114,14 +113,14 @@ class Search
      * @param bool $field
      * @param array $options
      */
-    public function wildcard($string, $field = false, $options = [])
+    public function wildcard($string, $field = false, $options = [ ])
     {
         $this->query->add((new Wildcard($field, $string, $options))->get());
     }
 
     /**
      * @param $string
-     * @param array|bool|string $field
+     * @param string $field
      * @todo  Work out why the search only works if the string is uppercase...
      * @return $this|bool
      */
@@ -159,7 +158,7 @@ class Search
      */
     private function mapWhereArray($string, array $array)
     {
-        return array_map(function () use ($string) {
+        return array_map(function() use ($string) {
             return $string;
         }, array_flip($array));
     }
@@ -189,7 +188,7 @@ class Search
      */
     private function mapIds(array $array)
     {
-        return array_map(function ($v) {
+        return array_map(function($v) {
             return $v->id;
         }, $array);
     }

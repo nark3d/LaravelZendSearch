@@ -19,18 +19,24 @@ final class Store extends LuceneStore
         $this->delete($model->id, $this->uid);
     }
 
+    /**
+     * @param Model $model
+     */
     private function filterFields($model)
     {
         return $this->filterKeysFromArray($model->attributesToArray(), $model::getSearchFields());
     }
 
+    /**
+     * @param Model $model
+     */
     private function filterParameters($model)
     {
-        if (! empty($model::getSearchParameters())) {
+        if (!empty($model::getSearchParameters())) {
             return $this->filterKeysFromArray($model->attributesToArray(), $model::getSearchParameters());
         }
 
-        return [];
+        return [ ];
     }
 
     /**
