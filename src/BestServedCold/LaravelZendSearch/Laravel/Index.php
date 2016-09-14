@@ -18,6 +18,5 @@ final class Index extends LuceneIndex
     public function __construct(Repository $config)
     {
         $this->setPath($config->get('search.index.path'));
-        $this->open();
     }
 }

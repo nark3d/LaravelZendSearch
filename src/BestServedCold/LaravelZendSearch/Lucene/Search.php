@@ -190,7 +190,9 @@ class Search
      */
     public function hits()
     {
-        return $this->mapIds($this->index->limit($this->limit)->open($this->path)->find($this->query->getBoolean()));
+        return $this->mapIds(
+            $this->index->limit($this->limit)->open($this->path)->get()->find($this->query->getBoolean())
+        );
     }
 
     /**

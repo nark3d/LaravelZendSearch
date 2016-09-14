@@ -19,15 +19,17 @@ class DestroyCommand extends Command
 
     public function fire()
     {
+        $config = App::make(Repository::class);
+
+        $indexPath = $config->get('search.index.path');
+
         if (!$this->option('verbose')) {
             $this->output = new NullOutput;
         }
 
-        $config = App::make(Repository::class);
-
         $this->info('Clearing search index');
 
-        if (File::isDirectory($indexPath = $config->get('search.index.path'))) {
+        if (File::isDirectory($indexPath)) {
             File::deleteDirectory($indexPath);
             $this->info('Search index is cleared.');
         } else {

@@ -5,10 +5,9 @@ namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 use BestServedCold\LaravelZendSearch\Laravel\Store;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
-use Nqxcode\LuceneSearch\Search;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
-use App;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class RebuildCommand
@@ -62,7 +61,7 @@ class RebuildCommand extends Command
 
                 $object->chunk(1000, function($chunk) use ($progress, $store) {
                         foreach ($chunk as $record) {
-                            error_reporting(E_ALL); ini_set('display_errors', true);
+                            $store->model($record);  // @todo move this to the insertmodel method
                             $store->insertModel($record, false);
                             $progress->advance();
                         }

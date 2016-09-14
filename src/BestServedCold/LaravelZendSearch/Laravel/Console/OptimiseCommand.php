@@ -24,7 +24,7 @@ class OptimiseCommand extends Command
 
         $this->info('Optimising index.');
         $index = App::make(Index::class);
-        $index->get()->optimize();
+        $index->open()->get()->optimize();
         $this->info('Optimising index finished.');
     }
 }

@@ -39,7 +39,7 @@ class Index
         $path ? $this->path = $path : null;
         Analyzer::setDefault(new CaseInsensitive);
         self::$index = $this->index($this->path(), $forceCreate);
-        return self::$index;
+        return $this;
     }
 
     /**
