@@ -3,6 +3,7 @@
 namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
 use BestServedCold\LaravelZendSearch\Laravel\Index;
+use Composer\Plugin\Capability\CommandProvider;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Output\NullOutput;
@@ -11,20 +12,16 @@ use Symfony\Component\Console\Output\NullOutput;
  * Class OptimiseCommand
  * @package BestServedCold\LaravelZendSearch\Laravel\Console
  */
-class OptimiseCommand extends Command
+class Optimise extends Command
 {
     protected $name = 'search:optimise';
-    protected $description = 'Optimise the search index storage';
+    protected $description = 'Optimise the search index storage.';
 
-    public function fire()
+    public function handle()
     {
-        if (!$this->option('verbose')) {
-            $this->output = new NullOutput;
-        }
-
-        $this->info('Optimising index.');
+        $this->info('Optimising search index.');
         $index = App::make(Index::class);
         $index->open()->get()->optimize();
-        $this->info('Optimising index finished.');
+        $this->info('Optimising finished.');
     }
 }

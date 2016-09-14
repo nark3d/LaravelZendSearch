@@ -26,6 +26,7 @@ final class Store extends LuceneStore
     public function insertModel(Model $model, $deleteFirst = true)
     {
         $this->index->open();
+        $this->model($model);
         return $this->insert(
             $model->id,
             $this->filterFields($model),

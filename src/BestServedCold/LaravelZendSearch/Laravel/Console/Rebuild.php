@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\App;
  * Class RebuildCommand
  * @package BestServedCold\LaravelZendSearch\Laravel\Console
  */
-class RebuildCommand extends Command
+class Rebuild extends Command
 {
     protected $name = 'search:rebuild';
     protected $description = 'Rebuild the search index';
@@ -29,7 +29,7 @@ class RebuildCommand extends Command
         }
     }
 
-    public function fire()
+    public function handle()
     {
         $this->getModels();
 
@@ -37,7 +37,7 @@ class RebuildCommand extends Command
             $this->output = new NullOutput;
         }
 
-        $this->call('search:destroy', ['--verbose' => $this->option('verbose')]);
+        $this->call('search:destroy', $this->getArguments());
 
         $store = App::make(Store::class);
 
@@ -61,7 +61,6 @@ class RebuildCommand extends Command
 
                 $object->chunk(1000, function($chunk) use ($progress, $store) {
                         foreach ($chunk as $record) {
-                            $store->model($record);  // @todo move this to the insertmodel method
                             $store->insertModel($record, false);
                             $progress->advance();
                         }
@@ -71,9 +70,7 @@ class RebuildCommand extends Command
                 $progress->finish();
             }
 
-            $this->info(PHP_EOL);
-
-            $this->call('search:optimise', ['--verbose' => $this->option('verbose')]);
+            $this->call('search:optimise', $this->getArguments());
 
             $this->info(PHP_EOL . 'Search engine rebuild complete.');
         }

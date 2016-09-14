@@ -12,28 +12,24 @@ use Illuminate\Support\Facades\App;
  * Class ClearCommand
  * @package BestServedCold\LaravelZendSearch\Laravel\Console
  */
-class DestroyCommand extends Command
+class Destroy extends Command
 {
     protected $name = 'search:destroy';
-    protected $description = 'Destroys the search index storage.';
+    protected $description = 'Destroys the search index.';
 
-    public function fire()
+    public function handle()
     {
         $config = App::make(Repository::class);
 
         $indexPath = $config->get('search.index.path');
 
-        if (!$this->option('verbose')) {
-            $this->output = new NullOutput;
-        }
-
-        $this->info('Clearing search index');
+        $this->info('Destroying the search index.');
 
         if (File::isDirectory($indexPath)) {
             File::deleteDirectory($indexPath);
-            $this->info('Search index is cleared.');
+            $this->info('Search index is destroyed.');
         } else {
-            $this->comment('There was nothing to clear.');
+            $this->comment('There was nothing to destroy?  Try a rebuild.');
         }
     }
 }
