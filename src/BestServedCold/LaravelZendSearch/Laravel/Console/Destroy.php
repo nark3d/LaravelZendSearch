@@ -4,7 +4,6 @@ namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Config\Repository;
-use Symfony\Component\Console\Output\NullOutput;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\App;
 

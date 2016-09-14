@@ -3,10 +3,8 @@
 namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
 use BestServedCold\LaravelZendSearch\Laravel\Index;
-use Composer\Plugin\Capability\CommandProvider;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
-use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * Class OptimiseCommand
