@@ -50,10 +50,24 @@ final class Insert
     public function insert($id, array $fields, array $parameters = [ ], $uid = false)
     {
         $this->document->addField($this->field('xref_id', $id));
-        $this->document->addField($this->field('_parameters', $this->flattenParameters($parameters), 'unIndexed'));
         $this->document = $this->addUid($this->document, $uid);
         $this->document = $this->addFields($this->document, $fields);
+        $this->document = $this->addParameters($this->document, $parameters);
         return $this->index->get()->addDocument($this->document);
+    }
+
+    /**
+     * @param Document $document
+     * @param array $parameters
+     * @return Document
+     */
+    private function addParameters(Document $document, array $parameters = [])
+    {
+        if (! empty($parameters)) {
+            $document->addField($this->field('_parameters', $this->flattenParameters($parameters), 'unIndexed'));
+        }
+
+        return $document;
     }
 
     /**
