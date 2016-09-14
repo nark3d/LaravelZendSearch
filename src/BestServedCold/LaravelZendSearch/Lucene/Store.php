@@ -57,14 +57,13 @@ class Store
      *
      * @param  $id
      * @param  array $fields
-     * @param  array $parameters
      * @param  bool  $uid
      * @return mixed
      */
-    public function insert($id, array $fields, array $parameters = [ ], $uid = false, $deleteFirst = true)
+    public function insert($id, array $fields, $uid = false, $deleteFirst = true)
     {
         $deleteFirst ? $this->delete($id, $uid) : null;
-        return $this->insert->insert($id, $fields, $parameters, $uid ?: $this->uid);
+        return $this->insert->insert($id, $fields, $uid ?: $this->uid);
     }
 
     /**

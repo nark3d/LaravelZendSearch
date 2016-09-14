@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\App;
 trait SearchTrait
 {
     private static $searchFields = [ ];
-    private static $searchParameters = [ ];
 
     private static function setup()
     {
@@ -44,22 +43,6 @@ trait SearchTrait
     public static function getSearchFields()
     {
         return self::$searchFields;
-    }
-
-    /**
-     * @param array $parameters
-     */
-    public static function setSearchParameters(array $parameters)
-    {
-        self::$searchParameters = $parameters;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getSearchParameters()
-    {
-        return self::$searchParameters;
     }
 
     /**

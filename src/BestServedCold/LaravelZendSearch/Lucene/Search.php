@@ -2,11 +2,12 @@
 
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
-use BestServedCold\LaravelZendSearch\Search\Wildcard;
+
 use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\Query\Phrase;
+use ZendSearch\Lucene\Search\Query\Wildcard;
 use ZendSearch\Lucene\Search\Query\Term as QueryTerm;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Search\QueryParser;
@@ -42,10 +43,6 @@ class Search
      */
     public function __call($name, $arguments)
     {
-        if (method_exists($this, $name)) {
-            return $this->$name($arguments);
-        }
-
         if (method_exists($this->query, $name)) {
             $this->query->$name($arguments);
             return $this;
@@ -126,7 +123,8 @@ class Search
      */
     public function wildcard($string, $field = false, $options = [ ])
     {
-        $this->query->add((new Wildcard($field, $string, $options))->get());
+        $this->query->add(new Wildcard($this->term($field, $string), $options));
+        return $this;
     }
 
     /**

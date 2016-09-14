@@ -3,8 +3,7 @@
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\TestCase;
-use Illuminate\Support\Facades\Config;
-use ZendSearch\Lucene\Lucene;
+
 use ZendSearch\Lucene\Search\Query\Boolean;
 
 final class SearchTest extends TestCase
@@ -18,6 +17,38 @@ final class SearchTest extends TestCase
         $index = new Index($this->app->config);
         $query = new Query($this->getMock(Boolean::class));
         $this->search = new Search($index, $query);
+    }
+
+    public function testOverloaderException()
+    {
+        $this->setExpectedException(\BadMethodCallException::class);
+
+        try {
+            $this->search->thisMethodDoesNotExistRandom();
+        } catch (\BadMethodCallException $e) {
+            throw $e;
+        }
+
+    }
+
+    public function testOverloaderReachesQuery()
+    {
+        $mock = $this->getMock(
+            Query::class,
+            ['existingMethod'],
+            [],
+            'MockQuery',
+            false
+        );
+
+        $mock
+            ->expects($this->once())
+            ->method('existingMethod')
+            ->will($this->returnValue('something'));
+
+        $search = new Search(new Index($this->app->config), $mock);
+
+        $this->assertInstanceOf(Search::class, $search->existingMethod());
     }
 
     public function testLimit()
@@ -34,8 +65,15 @@ final class SearchTest extends TestCase
 
     public function testRaw()
     {
-        $this->search->raw('(+(somekeyword))');
-
-//        $this->assertAttributeInstanceOf('something', 'query', $this->search);
+        $this->assertInstanceOf(Search::class, $this->search->raw('(+(somekeyword))'));
     }
+
+    public function testTypes()
+    {
+        $this->assertInstanceOf(Search::class, $this->search->phrase('some phrase'));
+        $this->assertInstanceOf(Search::class, $this->search->fuzzy('keywo'));
+        $this->assertInstanceOf(Search::class, $this->search->wildcard('key*'));
+        $this->assertInstanceOf(Search::class, $this->search->where('keyword'));
+    }
+
 }

@@ -30,7 +30,7 @@ class Index
      *
      * @param  bool $path
      * @param  bool $forceCreate
-     * @return \ZendSearch\Lucene\SearchIndexInterface
+     * @return $this
      * @throws ExceptionInterface
      * @throws \Exception
      */
@@ -38,6 +38,7 @@ class Index
     {
         $path ? $this->path = $path : null;
         Analyzer::setDefault(new CaseInsensitive);
+
         self::$index = $this->index($this->path(), $forceCreate);
         return $this;
     }

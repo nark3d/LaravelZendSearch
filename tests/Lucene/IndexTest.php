@@ -18,6 +18,19 @@ final class IndexTest extends TestCase
         $this->index = new Index;
     }
 
+    public function testOpenNoPathException()
+    {
+        $this->setExpectedException(\Exception::class, 'No path specified nor config variable set.');
+
+        $this->index->setPath(null);
+
+        try {
+            $this->index->open();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function testOpenNoForceException()
     {
         $this->setExpectedException(RuntimeException::class);
@@ -35,7 +48,7 @@ final class IndexTest extends TestCase
         $this->_clearDirectory($this->path);
 
         $indexTwo = $this->index->open($this->path);
-        $this->assertInstanceOf('ZendSearch\Lucene\Index', $indexTwo);
+        $this->assertInstanceOf(Index::class, $indexTwo);
 
         $this->_clearDirectory($this->path);
     }

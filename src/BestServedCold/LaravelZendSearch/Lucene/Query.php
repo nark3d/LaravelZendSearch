@@ -10,7 +10,7 @@ use ZendSearch\Lucene\Search\Query\AbstractQuery;
  *
  * @package BestServedCold\LaravelZendSearch\Lucene
  */
-final class Query
+class Query
 {
     /**
      * @var bool

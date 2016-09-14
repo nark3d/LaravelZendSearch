@@ -43,31 +43,15 @@ final class Insert
      *
      * @param  $id
      * @param  array          $fields     fields that are indexed
-     * @param  array          $parameters fields that aren't indexed
      * @param  boolean|string $uid        unique identifier, if required
      * @return mixed
      */
-    public function insert($id, array $fields, array $parameters = [ ], $uid = false)
+    public function insert($id, array $fields, $uid = false)
     {
         $this->document->addField($this->field('xref_id', $id));
         $this->document = $this->addUid($this->document, $uid);
         $this->document = $this->addFields($this->document, $fields);
-        $this->document = $this->addParameters($this->document, $parameters);
         return $this->index->get()->addDocument($this->document);
-    }
-
-    /**
-     * @param Document $document
-     * @param array $parameters
-     * @return Document
-     */
-    private function addParameters(Document $document, array $parameters = [])
-    {
-        if (! empty($parameters)) {
-            $document->addField($this->field('_parameters', $this->flattenParameters($parameters), 'unIndexed'));
-        }
-
-        return $document;
     }
 
     /**
@@ -107,15 +91,5 @@ final class Insert
         }
 
         return $document;
-    }
-
-    /**
-     * @param  $parameters
-     * @return string
-     * @todo   I'm not sure this is the right thing to do here, perhaps do some more investigation.
-     */
-    private function flattenParameters($parameters)
-    {
-        return base64_encode(json_encode($parameters));
     }
 }

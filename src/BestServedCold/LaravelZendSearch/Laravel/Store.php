@@ -30,7 +30,6 @@ final class Store extends LuceneStore
         return $this->insert(
             $model->id,
             $this->filterFields($model),
-            $this->filterParameters($model),
             $this->uid,
             $deleteFirst
         );
@@ -51,19 +50,6 @@ final class Store extends LuceneStore
     private function filterFields($model)
     {
         return $this->filterKeysFromArray($model->attributesToArray(), $model::getSearchFields());
-    }
-
-    /**
-     * @param Model $model
-     * @return array
-     */
-    private function filterParameters($model)
-    {
-        if (!empty($model::getSearchParameters())) {
-            return $this->filterKeysFromArray($model->attributesToArray(), $model::getSearchParameters());
-        }
-
-        return [ ];
     }
 
     /**
