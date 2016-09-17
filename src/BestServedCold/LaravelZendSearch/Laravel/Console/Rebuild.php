@@ -18,13 +18,13 @@ class Rebuild extends Command
     protected $name = 'search:rebuild';
     protected $description = 'Rebuild the search index';
 
-    private $models = [];
+    private $models = [ ];
 
     public function getModels()
     {
         foreach (get_declared_classes() as $class) {
             if (is_subclass_of($class, Model::class) && method_exists($class, 'searchFields')) {
-                $this->models[] = $class;
+                $this->models[ ] = $class;
             }
         }
     }
