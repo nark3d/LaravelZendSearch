@@ -19,15 +19,16 @@ class TestCase extends Orchestra
     protected function reflectionProperty($object, $property)
     {
         $reflection = new \ReflectionObject($object);
-        $reflectionProprety = $reflection->getProperty($property);
-        $reflectionProprety->setAccessible(true);
+        $reflectionProperty = $reflection->getProperty($property);
+        $reflectionProperty->setAccessible(true);
 
-        return $reflectionProprety->getValue($object);
+        return $reflectionProperty->getValue($object);
     }
 
-    protected function reflectionMethod($object, $method)
+    protected function reflectionMethod($object, $method, $arguments = null)
     {
-        $reflection = new \ReflectionMethod($object);
-
+        $method = new \ReflectionMethod($object, $method);
+        $method->setAccessible(true);
+        return $method->invokeArgs($object, $arguments);
     }
 }

@@ -5,16 +5,18 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 use BestServedCold\LaravelZendSearch\TestCase;
 
 use ZendSearch\Lucene\Search\Query\Boolean;
+use ZendSearch\Lucene\Search\QueryHit;
 
 final class SearchTest extends TestCase
 {
     private $search;
+    private $path =  "./tests/tmp/tempIndex";
 
     public function setUp()
     {
         parent::setUp();
         // PHP can't mock final classes!  Without using upopz, there's no other way of doing this.
-        $index = new Index($this->app->config);
+        $index = new Index($this->path);
         $query = new Query($this->getMock(Boolean::class));
         $this->search = new Search($index, $query);
     }
@@ -75,5 +77,47 @@ final class SearchTest extends TestCase
         $this->assertInstanceOf(Search::class, $this->search->wildcard('key*'));
         $this->assertInstanceOf(Search::class, $this->search->where('keyword'));
     }
+
+    public function testMultiTerm()
+    {
+        $terms[] = $this->search->singleTerm('keyword');
+        $terms[] = $this->search->singleTerm('keyword2');
+
+        $this->assertInstanceOf(Search::class, $this->search->multiTerm($terms));
+    }
+
+    public function testMapWhereArray()
+    {
+        $whereArray = ['bob' => 'susan', 'harry' => 'sally', 'marge' => 'collin'];
+
+        $this->assertSame(
+            ['susan' => 'table', 'sally' => 'table', 'collin' => 'table'],
+            $this->reflectionMethod($this->search, 'mapWhereArray', ['table', $whereArray])
+        );
+    }
+
+    public function testHits()
+    {
+//        $this->search->path($this->path);
+//        var_dump(
+//            $this->search
+//                ->hits()
+//        );
+    }
+
+    public function testMapIds()
+    {
+        $hit = new QueryHit((new Index($this->app->config))->get());
+        $hit->id = 123;
+
+        $array = ['bob' => $hit, 'harry' => $hit, 'marge' => $hit];
+
+        $this->assertSame(
+            ['bob' => 123, 'harry' => 123, 'marge' => 123],
+            $this->reflectionMethod($this->search, 'mapIds', [$array])
+        );
+    }
+
+
 
 }
