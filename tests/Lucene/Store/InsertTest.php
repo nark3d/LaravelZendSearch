@@ -16,6 +16,6 @@ class InsertTest extends TestCase
 
     public function testInsert()
     {
-        var_dump($this->insert->insert(1, ['some', 'shit']));
+//        var_dump($this->insert->insert(1, ['some', 'shit']));
     }
 }

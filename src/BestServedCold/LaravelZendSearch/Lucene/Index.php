@@ -18,7 +18,7 @@ class Index
     /**
      * @var LuceneIndex
      */
-    private static $index;
+    private $index;
 
     /**
      * @var string
@@ -36,10 +36,10 @@ class Index
      */
     public function open($path = false, $forceCreate = true)
     {
-        $path ? $this->path = $path : null;
+        $this->path = $path ? $path : $this->path;
         Analyzer::setDefault(new CaseInsensitive);
 
-        self::$index = $this->index($this->path(), $forceCreate);
+        $this->index = $this->index($this->path(), $forceCreate);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class Index
      * @param  string|boolean $path
      * @param  boolean        $forceCreate
      * @return SearchIndexInterface
-     * @throws \Exception
+     * @throws ExceptionInterface
      */
     private function index($path, $forceCreate = true)
     {
@@ -104,6 +104,6 @@ class Index
      */
     public function get()
     {
-        return self::$index;
+        return $this->index;
     }
 }

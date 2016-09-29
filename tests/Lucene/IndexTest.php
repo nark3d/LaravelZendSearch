@@ -9,23 +9,24 @@ use ZendSearch\Lucene\Index as LuceneIndex;
 
 final class IndexTest extends TestCase
 {
-    private $path =  "./tests/tmp/tempIndex";
-    private $index;
-    
     public function setUp()
     {
         parent::setUp();
-        $this->index = new Index;
+        $this->clearDirectory($this->indexPath);
     }
 
     public function testOpenNoPathException()
     {
-        $this->setExpectedException(\Exception::class, 'No path specified nor config variable set.');
+        $this->setExpectedException(
+            \Exception::class,
+            'No path specified nor config variable set.'
+        );
 
-        $this->index->setPath(null);
+        $index = new Index;
+        $index->setPath(null);
 
         try {
-            $this->index->open();
+            $index->open();
         } catch (\Exception $e) {
             throw $e;
         }
@@ -35,51 +36,26 @@ final class IndexTest extends TestCase
     {
         $this->setExpectedException(RuntimeException::class);
 
+        $index = new Index;
         try {
-            $this->index->open($this->path, false);
+            $index->open($this->indexPath, false);
         } catch (RuntimeException $e) {
             throw $e;
         }
-
     }
 
-    public function testOpen()
+    public function testOpenAndGet()
     {
-        $this->_clearDirectory($this->path);
+        $index = new Index;
+        $index->open($this->indexPath);
 
-        $indexTwo = $this->index->open($this->path);
-        $this->assertInstanceOf(Index::class, $indexTwo);
-
-        $this->_clearDirectory($this->path);
+        $this->assertInstanceOf(LuceneIndex::class, $index->get());
     }
 
     public function testLimit()
     {
-        $this->index->limit(10);
+        $index = new Index;
+        $index->limit(10);
         $this->assertSame(10, Lucene::getResultSetLimit());
-    }
-
-    public function testGet()
-    {
-        $this->index->open($this->path);
-        $this->assertInstanceOf(LuceneIndex::class, $this->index->get());
-
-        $this->_clearDirectory($this->path);
-    }
-
-    private function _clearDirectory($path)
-    {
-
-        if (file_exists($path)) {
-            $dir = opendir($path);
-            while (($file = readdir($dir)) !== false) {
-                if (!is_dir($path . '/' . $file)) {
-                    @unlink($path . '/' . $file);
-                }
-            }
-            closedir($dir);
-            rmdir($path);
-        }
-
     }
 }

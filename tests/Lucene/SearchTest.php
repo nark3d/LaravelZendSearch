@@ -10,13 +10,13 @@ use ZendSearch\Lucene\Search\QueryHit;
 final class SearchTest extends TestCase
 {
     private $search;
-    private $path =  "./tests/tmp/tempIndex";
 
     public function setUp()
     {
         parent::setUp();
-        // PHP can't mock final classes!  Without using upopz, there's no other way of doing this.
-        $index = new Index($this->path);
+        // PHP can't mock final classes!  Without using upopz, there's no other
+        // way of doing this.
+        $index = new Index($this->indexPath);
         $query = new Query($this->getMock(Boolean::class));
         $this->search = new Search($index, $query);
     }
@@ -98,7 +98,7 @@ final class SearchTest extends TestCase
 
     public function testHits()
     {
-//        $this->search->path($this->path);
+        $this->search->path($this->indexPath);
 //        var_dump(
 //            $this->search
 //                ->hits()
@@ -107,7 +107,10 @@ final class SearchTest extends TestCase
 
     public function testMapIds()
     {
-        $hit = new QueryHit((new Index($this->app->config))->get());
+        $index = new Index($this->indexPath);
+        $index->setPath($this->indexPath); // @todo why doesn't the constructor do this?
+        $index->open();
+        $hit = new QueryHit($index->get());
         $hit->id = 123;
 
         $array = ['bob' => $hit, 'harry' => $hit, 'marge' => $hit];
