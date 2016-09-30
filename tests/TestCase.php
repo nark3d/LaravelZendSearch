@@ -13,6 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
         $this->indexPath = realpath(getcwd() . $this->indexPath). DIRECTORY_SEPARATOR .
             'tempIndex';
+        var_dump($this->indexPath);
     }
 
     public function tearDown()
