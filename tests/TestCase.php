@@ -6,12 +6,12 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    protected $indexPath =  "tests/tmp";
+    protected $indexPath =  "/tests/tmp";
 
     public function setUp()
     {
         parent::setUp();
-        $this->indexPath = realpath($this->indexPath). DIRECTORY_SEPARATOR .
+        $this->indexPath = realpath(getcwd() . $this->indexPath). DIRECTORY_SEPARATOR .
             'tempIndex';
     }
 
