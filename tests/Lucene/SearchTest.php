@@ -22,19 +22,13 @@ final class SearchTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        // PHP can't mock final classes!  Without using upopz, there's no other
-        // way of doing this.
-
         $queryHit = $this->getMockBuilder(QueryHit::class)->disableOriginalConstructor()->getMock();
-
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('find')->willReturn(['bob' => $queryHit]);
-
         $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
         $index->method('limit')->willReturnSelf();
         $index->method('open')->willReturnSelf();
         $index->method('get')->willReturn($luceneIndex);
-
         $query = new Query($this->getMock(Boolean::class));
         $this->search = new Search($index, $query);
     }
@@ -122,10 +116,15 @@ final class SearchTest extends TestCase
 
     public function testMapIds()
     {
+        $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
+
+        $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
+
         $index = new Index($this->indexPath);
         $index->setPath($this->indexPath); // @todo why doesn't the constructor do this?
         $index->open();
-        $hit = new QueryHit($index->get());
+
+        $hit = new QueryHit($luceneIndex);
         $hit->id = 123;
 
         $array = ['bob' => $hit, 'harry' => $hit, 'marge' => $hit];
