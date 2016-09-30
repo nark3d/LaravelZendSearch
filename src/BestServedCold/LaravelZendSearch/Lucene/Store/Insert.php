@@ -12,7 +12,7 @@ use ZendSearch\Lucene\Document\Field;
  *
  * @package BestServedCold\LaravelZendSearch\Lucene\Store
  */
-final class Insert
+class Insert
 {
     /**
      * @var Index

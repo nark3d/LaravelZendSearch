@@ -10,7 +10,7 @@ use BestServedCold\LaravelZendSearch\Lucene\Search;
  *
  * @package BestServedCold\LaravelZendSearch\Lucene\Store
  */
-final class Delete
+class Delete
 {
     /**
      * @var Search

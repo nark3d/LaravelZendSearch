@@ -6,9 +6,17 @@ use BestServedCold\LaravelZendSearch\TestCase;
 
 use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\QueryHit;
+use ZendSearch\Lucene\Index as LuceneIndex;
 
+/**
+ * Class SearchTest
+ * @package BestServedCold\LaravelZendSearch\Lucene
+ */
 final class SearchTest extends TestCase
 {
+    /**
+     * @var Search $search
+     */
     private $search;
 
     public function setUp()
@@ -16,9 +24,24 @@ final class SearchTest extends TestCase
         parent::setUp();
         // PHP can't mock final classes!  Without using upopz, there's no other
         // way of doing this.
-        $index = new Index($this->indexPath);
+
+        $queryHit = $this->getMockBuilder(QueryHit::class)->disableOriginalConstructor()->getMock();
+
+        $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
+        $luceneIndex->method('find')->willReturn(['bob' => $queryHit]);
+
+        $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
+        $index->method('limit')->willReturnSelf();
+        $index->method('open')->willReturnSelf();
+        $index->method('get')->willReturn($luceneIndex);
+
         $query = new Query($this->getMock(Boolean::class));
         $this->search = new Search($index, $query);
+    }
+
+    public function testHits()
+    {
+        $this->assertEquals(['bob' => null], $this->search->hits());
     }
 
     public function testOverloaderException()
@@ -96,14 +119,6 @@ final class SearchTest extends TestCase
         );
     }
 
-    public function testHits()
-    {
-        $this->search->path($this->indexPath);
-//        var_dump(
-//            $this->search
-//                ->hits()
-//        );
-    }
 
     public function testMapIds()
     {

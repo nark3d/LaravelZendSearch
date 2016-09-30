@@ -33,9 +33,8 @@ class Store
      * @param Delete $delete
      * @param Insert $insert
      */
-    public function __construct(Delete $delete, Insert $insert, Index $index)
+    public function __construct(Delete $delete, Insert $insert)
     {
-        $this->index  = $index;
         $this->delete = $delete;
         $this->insert = $insert;
     }

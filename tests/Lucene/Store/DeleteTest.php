@@ -6,20 +6,20 @@ use BestServedCold\LaravelZendSearch\Lucene\Index;
 use BestServedCold\LaravelZendSearch\Lucene\Search;
 use BestServedCold\LaravelZendSearch\TestCase;
 use ZendSearch\Lucene\Index as LuceneIndex;
-use ZendSearch\Lucene\Document;
 
-class InsertTest extends TestCase
+class DeleteTest extends TestCase
 {
-    public function testInsert()
+    public function testDelete()
     {
         $search = $this->getMockBuilder(Search::class)->disableOriginalConstructor()->getMock();
+        $search->method('hits')->willReturn(['bob', 'mary']);
         $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('addDocument')->willReturn(null);
         $index->method('get')->willReturn($luceneIndex);
-        $document = $this->getMockBuilder(Document::class)->disableOriginalConstructor()->getMock();
-        $insert = new Insert($search, $index, $document);
+        $delete = new Delete($search, $index);
 
-        $this->assertNull($insert->insert(1, ['some', 'shit'], 'someUid'));
+        $this->assertInstanceOf(Delete::class, $delete->delete(1, 'someUid'));
+
     }
 }

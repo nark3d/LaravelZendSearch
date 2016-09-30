@@ -189,7 +189,12 @@ class Search
     public function hits()
     {
         return $this->mapIds(
-            $this->index->limit($this->limit)->open($this->path)->get()->find($this->query->getBoolean())
+            $this->index->limit($this->limit)
+                ->open($this->path)
+                ->get()
+                ->find(
+                    $this->query->getBoolean()
+                )
         );
     }
 

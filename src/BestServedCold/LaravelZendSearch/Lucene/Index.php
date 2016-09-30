@@ -61,7 +61,7 @@ class Index
      * @param  string|boolean $path
      * @param  boolean        $forceCreate
      * @return SearchIndexInterface
-     * @throws ExceptionInterface
+     * @throws \Exception
      */
     private function index($path, $forceCreate = true)
     {

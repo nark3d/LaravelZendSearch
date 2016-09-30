@@ -31,6 +31,12 @@ class TestCase extends Orchestra
         return ['Search' => 'BestServedCold\LaravelZendSearch\Laravel\Facade'];
     }
 
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('search.index.path', 'tests/tmp/tempIndex');
+        parent::getEnvironmentSetUp($app);
+    }
+
     protected function reflectionProperty($object, $property)
     {
         $reflection = new \ReflectionObject($object);
@@ -65,9 +71,7 @@ class TestCase extends Orchestra
             }
 
             closedir($dir);
-
             rmdir($path);
-
         }
     }
 
