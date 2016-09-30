@@ -11,7 +11,7 @@ class TestCase extends Orchestra
     public function setUp()
     {
         parent::setUp();
-        $this->indexPath = realpath($this->indexPath). DIRECTORY_SEPARATOR .
+        $this->indexPath = $this->indexPath . DIRECTORY_SEPARATOR .
             'tempIndex';
         var_dump($this->indexPath);
     }
