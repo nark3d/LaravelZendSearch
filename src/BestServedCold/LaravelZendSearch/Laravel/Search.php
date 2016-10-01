@@ -29,7 +29,10 @@ class Search extends LuceneSearch
      */
     public function get()
     {
-        return $this->model->whereIn($this->key, $this->hits())->get();
+        return $this->model->whereIn(
+            $this->key,
+            $this->hits()
+        )->get();
     }
 
     /**

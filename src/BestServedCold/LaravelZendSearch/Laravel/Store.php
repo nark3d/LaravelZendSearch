@@ -15,9 +15,12 @@ final class Store extends LuceneStore
 {
     use EloquentTrait;
 
+    private $index;
+
     public function __construct(Delete $delete, Insert $insert, Index $index)
     {
-        parent::__construct($delete, $insert, $index);
+        parent::__construct($delete, $insert);
+        $this->index = $index;
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Config\Repository;
  * Class Index
  * @package BestServedCold\LaravelZendSearch\Laravel
  */
-final class Index extends LuceneIndex
+class Index extends LuceneIndex
 {
     /**
      * Index constructor.
