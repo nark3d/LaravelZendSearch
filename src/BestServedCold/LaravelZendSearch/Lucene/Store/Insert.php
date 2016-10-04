@@ -25,6 +25,11 @@ class Insert
     private $document;
 
     /**
+     * @var Search
+     */
+    private $search;
+
+    /**
      * Insert constructor.
      *
      * @param Search   $search
@@ -66,8 +71,8 @@ class Insert
     }
 
     /**
-     * @param  Document $document
-     * @param  bool     $uid
+     * @param  Document       $document
+     * @param  boolean|string $uid
      * @return Document
      */
     private function addUid(Document $document, $uid = false)

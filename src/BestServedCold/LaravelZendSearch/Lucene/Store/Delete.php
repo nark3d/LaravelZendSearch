@@ -39,7 +39,7 @@ class Delete
      * Delete
      *
      * @param  $id
-     * @param  bool $uid
+     * @param  string|boolean $uid
      * @return $this
      */
     public function delete($id, $uid = false)

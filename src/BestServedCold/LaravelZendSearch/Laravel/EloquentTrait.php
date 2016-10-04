@@ -21,7 +21,7 @@ trait EloquentTrait
     protected $model;
 
     /**
-     * @var int $uid
+     * @var string $uid
      */
     protected $uid;
 

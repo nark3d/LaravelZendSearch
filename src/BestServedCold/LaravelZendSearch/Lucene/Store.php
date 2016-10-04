@@ -51,7 +51,7 @@ class Store
      *
      * @param  $id
      * @param  array $fields
-     * @param  bool  $uid
+     * @param  string|boolean  $uid
      * @return mixed
      */
     public function insert($id, array $fields, $uid = false, $deleteFirst = true)

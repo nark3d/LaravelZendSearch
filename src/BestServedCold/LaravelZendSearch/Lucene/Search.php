@@ -142,8 +142,8 @@ class Search
     }
 
     /**
-     * @param $string
-     * @param bool|string $field
+     * @param boolean|$string
+     * @param boolean|string $field
      * @return $this|bool
      */
     public function where($string, $field = false)
