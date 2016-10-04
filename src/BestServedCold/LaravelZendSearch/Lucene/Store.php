@@ -37,8 +37,8 @@ class Store
     /**
      * Delete
      *
-     * @param  integer $id
-     * @param  bool    $uid
+     * @param  integer        $id
+     * @param  boolean|string $uid
      * @return Delete
      */
     public function delete($id, $uid = false)

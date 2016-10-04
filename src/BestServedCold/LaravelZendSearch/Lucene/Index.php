@@ -21,7 +21,7 @@ class Index
     private $index;
 
     /**
-     * @var string
+     * @var string|boolean $path
      */
     protected $path;
 

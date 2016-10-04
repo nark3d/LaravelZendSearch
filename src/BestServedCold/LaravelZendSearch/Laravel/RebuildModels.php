@@ -29,7 +29,7 @@ class RebuildModels
     private $output;
 
     /**
-     * @var array|bool $models
+     * @var array $models
      */
     private $models = [ ];
 
@@ -56,6 +56,7 @@ class RebuildModels
         $models = [ ];
 
         foreach (get_declared_classes() as $class) {
+            // Ignoring PHP bug #53727 here, Eloquent Models implement several interfaces.
             if (is_subclass_of($class, Model::class) && method_exists($class, 'searchFields')) {
                 $models[ ] = $class;
             }
@@ -98,7 +99,7 @@ class RebuildModels
     /**
      * Loop Models
      *
-     * @return void
+     * return @void
      */
     private function loopModels()
     {

@@ -24,6 +24,7 @@ trait SearchTrait
      */
     private static function setup()
     {
+        // Ignoring PHP bug #53727 here, Eloquent Models implement several interfaces.
         if (!is_subclass_of(static::class, Model::class)) {
             throw new \Exception(
                 'SearchTrait must only be used with Eloquent models, [' . get_called_class() . '] used.'

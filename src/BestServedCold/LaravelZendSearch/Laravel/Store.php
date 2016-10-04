@@ -35,6 +35,8 @@ class Store extends LuceneStore
 
     /**
      * @param Model $model
+     * @param bool $deleteFirst
+     * @return mixed
      */
     public function insertModel(Model $model, $deleteFirst = true)
     {
