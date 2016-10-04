@@ -2,7 +2,7 @@
 
 return [
     'index' => [
-        'path' => storage_path('app') . '/zendsearch-search/index' // @todo use this for now, but change when you've built the indexer
+        'path' => storage_path('app') . '/laravelzendsearch/index'
     ],
     'modelPath' => app_path()
 ];

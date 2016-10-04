@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DummyModel extends Model
 {
+    public static $count = 2;
+
     use SearchTrait;
 
     protected $primaryKey = 'different';
@@ -23,5 +25,10 @@ class DummyModel extends Model
     public function get()
     {
         return ['some' => 'data'];
+    }
+
+    public function count()
+    {
+        return self::$count;
     }
 }

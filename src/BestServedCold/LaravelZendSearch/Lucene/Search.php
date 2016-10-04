@@ -2,7 +2,6 @@
 
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
-
 use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
@@ -92,7 +91,6 @@ class Search
     {
         $this->query->add(new Phrase(explode(' ', $string), $offsets, $field));
         return $this;
-
     }
 
     /**
@@ -131,7 +129,6 @@ class Search
      * @param $string
      * @param bool|string $field
      * @return $this|bool
-     * @todo  Work out why the search only works if the string is uppercase...
      */
     public function where($string, $field = false)
     {
@@ -162,14 +159,14 @@ class Search
      * @param $string
      * @param array  $array
      * @return mixed
-     * @todo abstract this out
      */
     private function mapWhereArray($string, array $array)
     {
         return array_map(
-            function() use ($string) {
+            function () use ($string) {
                 return $string;
-            }, array_flip($array)
+            },
+            array_flip($array)
         );
     }
 
@@ -201,14 +198,14 @@ class Search
     /**
      * @param array $array
      * @return mixed
-     * @todo abstract this out
      */
     private function mapIds(array $array)
     {
         return array_map(
-            function(QueryHit $hit) {
+            function (QueryHit $hit) {
                 return $hit->id;
-            }, $array
+            },
+            $array
         );
     }
 }

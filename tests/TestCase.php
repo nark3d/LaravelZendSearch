@@ -32,8 +32,14 @@ class TestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('search.index.path', 'tests/tmp/tempIndex');
         parent::getEnvironmentSetUp($app);
+        $app['config']->set('search.index.path', 'tests/tmp/tempIndex');
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', array(
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ));
     }
 
     protected function reflectionProperty($object, $property)
@@ -45,7 +51,7 @@ class TestCase extends Orchestra
         return $reflectionProperty->getValue($object);
     }
 
-    protected function reflectionMethod($object, $method, $arguments = null)
+    protected function reflectionMethod($object, $method, $arguments = [])
     {
         $method = new \ReflectionMethod($object, $method);
         $method->setAccessible(true);

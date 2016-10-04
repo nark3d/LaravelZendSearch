@@ -11,7 +11,7 @@ use BestServedCold\LaravelZendSearch\Lucene\Store\Insert;
  * Class Store
  * @package BestServedCold\LaravelZendSearch\Laravel
  */
-final class Store extends LuceneStore
+class Store extends LuceneStore
 {
     use EloquentTrait;
 
@@ -59,7 +59,6 @@ final class Store extends LuceneStore
      * @param  array $haystack
      * @param  array $needle
      * @return array
-     * @todo   refactor this out of here.
      */
     private function filterKeysFromArray(array $haystack, array $needle)
     {

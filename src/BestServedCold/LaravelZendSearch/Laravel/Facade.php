@@ -14,7 +14,7 @@ class Facade extends \Illuminate\Support\Facades\Facade
      * @return             string
      * @codeCoverageIgnore
      */
-    protected static function getFacadeAccessor() 
+    protected static function getFacadeAccessor()
     {
         return 'search';
     }

@@ -38,7 +38,7 @@ class Insert
         $this->document = $document;
     }
 
-    /**             
+    /**
      * Insert
      *
      * @param  $id

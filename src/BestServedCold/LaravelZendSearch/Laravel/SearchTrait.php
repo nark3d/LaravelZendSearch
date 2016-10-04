@@ -17,7 +17,7 @@ trait SearchTrait
     {
         if (!is_subclass_of(static::class, Model::class)) {
             throw new \Exception(
-                'SearchTrait must only be used with Eloquent models, [' . get_called_class() . '] used'
+                'SearchTrait must only be used with Eloquent models, [' . get_called_class() . '] used.'
             );
         }
 
@@ -26,7 +26,7 @@ trait SearchTrait
 
     private static function searchFields()
     {
-        throw new \Exception("Method [searchFields] must exist and be static");
+        throw new \Exception("Method [searchFields] must exist and be static.");
     }
 
     /**
@@ -61,39 +61,32 @@ trait SearchTrait
     public static function bootSearchTrait()
     {
         self::setup();
-
         $store = App::make(Store::class);
-
-        self::saved(
-            function(Model $model) use ($store) {
-                self::insertCallback($model, $store);
-            }
-        );
-
-        self::deleting(
-            function(Model $model) use ($store) {
-                self::deleteCallback($model, $store);
-            }
-        );
+        self::saved(self::insertCallback($store));
+        self::deleting(self::deleteCallback($store));
     }
 
     /**
-     * @param Model $model
      * @param Store $store
+     * @return \Closure
      */
-    private static function insertCallback(Model $model, Store $store)
+    private static function insertCallback(Store $store)
     {
-        $store->model($model);
-        $store->insertModel($model);
+        return function (Model $model) use ($store) {
+            $store->model($model);
+            $store->insertModel($model);
+        };
     }
 
     /**
-     * @param Model $model
      * @param Store $store
+     * @return \Closure
      */
-    private static function deleteCallback(Model $model, Store $store)
+    private static function deleteCallback(Store $store)
     {
-        $store->model($model);
-        $store->deleteModel($model);
+        return function (Model $model) use ($store) {
+            $store->model($model);
+            $store->deleteModel($model);
+        };
     }
 }
