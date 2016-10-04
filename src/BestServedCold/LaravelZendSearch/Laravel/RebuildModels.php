@@ -31,18 +31,18 @@ class RebuildModels
      */
     private function getModels()
     {
-        $models = [];
+        $models = [ ];
 
         foreach (get_declared_classes() as $class) {
             if (is_subclass_of($class, Model::class) && method_exists($class, 'searchFields')) {
-                $models[] = $class;
+                $models[ ] = $class;
             }
         }
 
-        return empty($models) ? [] : $models;
+        return empty($models) ? [ ] : $models;
     }
 
-    public function setModels(array $models = [])
+    public function setModels(array $models = [ ])
     {
         $this->models = $models;
     }
@@ -53,7 +53,7 @@ class RebuildModels
      */
     private function output($type, $string)
     {
-        if (! $this->output instanceof NullOutput) {
+        if (!$this->output instanceof NullOutput) {
             $this->output->$type($string);
         }
     }
