@@ -14,8 +14,8 @@ Follow these steps to get the package in place
 
 ### Setup
 
-```json 
-{ I'll put this in packagist when I've finished testing } 
+```shell
+composer require best-served-cold/laravel-zendsearch
 ```
 
 Update composer and then add the `ServiceProvider` to `config/app.php`
