@@ -41,7 +41,7 @@ I'm not keen on Facades, but if you want to use one, add it to the aliases in `c
 Get your config published
 
 ```bash
-php artisan vendor:publish --provider="BestServedCold\Laravel\ServiceProvider"
+php artisan vendor:publish
 ```
 
 ## Usage
