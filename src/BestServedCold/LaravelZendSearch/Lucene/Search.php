@@ -28,7 +28,7 @@ class Search
     protected $query;
 
     /**
-     * @var string $path
+     * @var string|boolean $path
      */
     private $path;
 
@@ -97,12 +97,12 @@ class Search
 
     /**
      * @param $string
-     * @param bool|string $field
+     * @param null|string $field
      * @param null        $offsets
      * @return $this
      * @return $this
      */
-    public function phrase($string, $field = false, $offsets = null)
+    public function phrase($string, $field = null, $offsets = null)
     {
         $this->query->add(new Phrase(explode(' ', $string), $offsets, $field));
         return $this;
@@ -110,10 +110,10 @@ class Search
 
     /**
      * @param $string
-     * @param bool|string   $field
+     * @param null|string   $field
      * @return $this
      */
-    public function fuzzy($string, $field = false)
+    public function fuzzy($string, $field = null)
     {
         $this->query->add(new Fuzzy($this->term($field, $string)));
         return $this;
@@ -121,21 +121,21 @@ class Search
 
     /**
      * @param $string
-     * @param bool|string   $field
+     * @param null|string   $field
      * @return Term
      */
-    protected function term($string, $field = false)
+    protected function term($string, $field = null)
     {
         return new Term(strtoupper($string), $field);
     }
 
     /**
      * @param  $string
-     * @param  bool|string $field
+     * @param  null|string $field
      * @param  array       $options
      * @return $this
      */
-    public function wildcard($string, $field = false, $options = [ ])
+    public function wildcard($string, $field = null, $options = [ ])
     {
         $this->query->add(new Wildcard($this->term($field, $string), $options));
         return $this;
@@ -143,10 +143,10 @@ class Search
 
     /**
      * @param boolean|$string
-     * @param boolean|string $field
+     * @param null|string $field
      * @return $this|bool
      */
-    public function where($string, $field = false)
+    public function where($string, $field = null)
     {
         is_array($field)
             ? $this->multiTerm($this->mapWhereArray($string, $field))
@@ -188,10 +188,10 @@ class Search
 
     /**
      * @param string         $string
-     * @param string|boolean $field
+     * @param string|null $field
      * @return QueryTerm
      */
-    public function singleTerm($string, $field = false)
+    public function singleTerm($string, $field = null)
     {
         return new QueryTerm($this->term($string, $field));
     }
