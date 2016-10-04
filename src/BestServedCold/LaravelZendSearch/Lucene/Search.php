@@ -135,9 +135,9 @@ class Search
      * @param  array       $options
      * @return $this
      */
-    public function wildcard($string, $field = null, $options = [ ])
+    public function wildcard($string, $field = null)
     {
-        $this->query->add(new Wildcard($this->term($field, $string), $options));
+        $this->query->add(new Wildcard($this->term($field, $string)));
         return $this;
     }
 
@@ -212,10 +212,10 @@ class Search
     }
 
     /**
-     * @param array $array
+     * @param array|QueryHit $array
      * @return mixed
      */
-    private function mapIds(array $array)
+    private function mapIds($array)
     {
         return array_map(
             function(QueryHit $hit) {
