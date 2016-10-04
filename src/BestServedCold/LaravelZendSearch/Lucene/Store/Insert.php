@@ -25,20 +25,13 @@ class Insert
     private $document;
 
     /**
-     * @var Search
-     */
-    private $search;
-
-    /**
      * Insert constructor.
      *
-     * @param Search   $search
      * @param Index    $index
      * @param Document $document
      */
-    public function __construct(Search $search, Index $index, Document $document)
+    public function __construct(Index $index, Document $document)
     {
-        $this->search   = $search;
         $this->index    = $index;
         $this->document = $document;
     }

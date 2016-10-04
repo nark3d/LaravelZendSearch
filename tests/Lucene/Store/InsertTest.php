@@ -12,13 +12,12 @@ class InsertTest extends TestCase
 {
     public function testInsert()
     {
-        $search = $this->getMockBuilder(Search::class)->disableOriginalConstructor()->getMock();
         $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('addDocument')->willReturn(null);
         $index->method('get')->willReturn($luceneIndex);
         $document = $this->getMockBuilder(Document::class)->disableOriginalConstructor()->getMock();
-        $insert = new Insert($search, $index, $document);
+        $insert = new Insert($index, $document);
 
         $this->assertNull($insert->insert(1, ['some', 'shit'], 'someUid'));
     }
