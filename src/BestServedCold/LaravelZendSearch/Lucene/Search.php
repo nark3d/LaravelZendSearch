@@ -132,7 +132,6 @@ class Search
     /**
      * @param  $string
      * @param  null|string $field
-     * @param  array       $options
      * @return $this
      */
     public function wildcard($string, $field = null)
