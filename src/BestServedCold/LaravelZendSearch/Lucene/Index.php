@@ -39,7 +39,7 @@ class Index
         $this->path = $path ? $path : $this->path;
         Analyzer::setDefault(new CaseInsensitive);
 
-        $this->index = $this->index($this->path(), $forceCreate);
+        $this->index = $this->createIndex($this->path(), $forceCreate);
         return $this;
     }
 
@@ -54,7 +54,7 @@ class Index
     }
 
     /**
-     * Index
+     * Create Index
      *
      * Extends the Lucene "open" method to create the index if it doesn't exist.
      *
@@ -63,7 +63,7 @@ class Index
      * @return SearchIndexInterface
      * @throws \Exception
      */
-    private function index($path, $forceCreate = true)
+    private function createIndex($path, $forceCreate = true)
     {
         try {
             $index = Lucene::open($path);
