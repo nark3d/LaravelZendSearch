@@ -76,7 +76,7 @@ class Search
     }
 
     /**
-     * @param bool $path
+     * @param bool|string $path
      * @return $this
      */
     public function path($path = false)
@@ -97,8 +97,8 @@ class Search
 
     /**
      * @param $string
-     * @param bool   $field
-     * @param null   $offsets
+     * @param bool|string $field
+     * @param null        $offsets
      * @return $this
      * @return $this
      */
@@ -110,7 +110,7 @@ class Search
 
     /**
      * @param $string
-     * @param bool   $field
+     * @param bool|string   $field
      * @return $this
      */
     public function fuzzy($string, $field = false)
@@ -121,7 +121,7 @@ class Search
 
     /**
      * @param $string
-     * @param bool   $field
+     * @param bool|string   $field
      * @return Term
      */
     protected function term($string, $field = false)
@@ -131,8 +131,8 @@ class Search
 
     /**
      * @param  $string
-     * @param  bool   $field
-     * @param  array  $options
+     * @param  bool|string $field
+     * @param  array       $options
      * @return $this
      */
     public function wildcard($string, $field = false, $options = [ ])
@@ -172,7 +172,7 @@ class Search
     }
 
     /**
-     * @param $string
+     * @param string $string
      * @param array  $array
      * @return mixed
      */
@@ -187,8 +187,8 @@ class Search
     }
 
     /**
-     * @param $string
-     * @param $field
+     * @param string         $string
+     * @param string|boolean $field
      * @return QueryTerm
      */
     public function singleTerm($string, $field = false)

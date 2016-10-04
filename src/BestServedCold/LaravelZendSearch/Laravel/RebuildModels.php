@@ -49,7 +49,7 @@ class RebuildModels
     }
 
     /**
-     * @return array|bool
+     * @return array
      */
     private function getModels()
     {
