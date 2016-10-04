@@ -163,7 +163,7 @@ class Search
     private function mapWhereArray($string, array $array)
     {
         return array_map(
-            function () use ($string) {
+            function() use ($string) {
                 return $string;
             },
             array_flip($array)
@@ -202,7 +202,7 @@ class Search
     private function mapIds(array $array)
     {
         return array_map(
-            function (QueryHit $hit) {
+            function(QueryHit $hit) {
                 return $hit->id;
             },
             $array

@@ -72,7 +72,7 @@ trait SearchTrait
      */
     private static function insertCallback(Store $store)
     {
-        return function (Model $model) use ($store) {
+        return function(Model $model) use ($store) {
             $store->model($model);
             $store->insertModel($model);
         };
@@ -84,7 +84,7 @@ trait SearchTrait
      */
     private static function deleteCallback(Store $store)
     {
-        return function (Model $model) use ($store) {
+        return function(Model $model) use ($store) {
             $store->model($model);
             $store->deleteModel($model);
         };

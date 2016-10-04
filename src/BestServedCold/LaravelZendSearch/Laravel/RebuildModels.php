@@ -16,7 +16,7 @@ class RebuildModels
     private $progressBar;
     private $store;
     private $output;
-    private $models = [];
+    private $models = [ ];
 
     public function __construct(ProgressBar $progressBar, Store $store, OutputInterface $output)
     {
@@ -47,6 +47,10 @@ class RebuildModels
         $this->models = $models;
     }
 
+    /**
+     * @param string $type
+     * @param string $string
+     */
     private function output($type, $string)
     {
         if (! $this->output instanceof NullOutput) {
@@ -67,7 +71,6 @@ class RebuildModels
     }
 
     /**
-     * @param array $models
      */
     private function loopModels()
     {
@@ -101,7 +104,7 @@ class RebuildModels
      */
     private function chunk(Model $object)
     {
-        $object->chunk(1000, function ($chunk) {
+        $object->chunk(1000, function($chunk) {
             foreach ($chunk as $record) {
                 $this->store->insertModel($record, false);
                 $this->progressBar->advance();
