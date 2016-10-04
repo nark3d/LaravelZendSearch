@@ -17,8 +17,7 @@ class StoreTest extends TestCase
 
         $delete = $this->getMockBuilder(Delete::class)
             ->disableOriginalConstructor()
-            ->getMock()
-        ;
+            ->getMock();
         $delete->method('delete')->willReturnSelf();
 
         $insert = $this->getMockBuilder(Insert::class)
@@ -38,11 +37,5 @@ class StoreTest extends TestCase
     public function testInsert()
     {
         $this->assertInstanceOf(Insert::class, $this->store->insert(1, ['bob' => 'mary']));
-    }
-
-    public function testUid()
-    {
-        $this->store->uid('uniqueIdentifier');
-        $this->assertEquals('uniqueIdentifier', $this->reflectionProperty($this->store, 'uid'));
     }
 }

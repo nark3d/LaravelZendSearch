@@ -43,7 +43,7 @@ class Store
      */
     public function delete($id, $uid = false)
     {
-        return $this->delete->delete($id, $uid ?: $this->uid);
+        return $this->delete->delete($id, $uid);
     }
 
     /**
@@ -57,18 +57,6 @@ class Store
     public function insert($id, array $fields, $uid = false, $deleteFirst = true)
     {
         $deleteFirst ? $this->delete($id, $uid) : null;
-        return $this->insert->insert($id, $fields, $uid ?: $this->uid);
-    }
-
-    /**
-     * Uid
-     *
-     * @param  $uid
-     * @return $this
-     */
-    public function uid($uid)
-    {
-        $this->uid = $uid;
-        return $this;
+        return $this->insert->insert($id, $fields, $uid);
     }
 }
