@@ -3,7 +3,6 @@
 namespace BestServedCold\LaravelZendSearch\Lucene\Store;
 
 use BestServedCold\LaravelZendSearch\Lucene\Index;
-use BestServedCold\LaravelZendSearch\Lucene\Search;
 use ZendSearch\Lucene\Document;
 use ZendSearch\Lucene\Document\Field;
 
