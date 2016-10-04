@@ -69,7 +69,8 @@ class SearchTraitTest extends TestCase
     {
         $this->setExpectedException(
             \Exception::class,
-            'SearchTrait must only be used with Eloquent models, [BestServedCold\LaravelZendSearch\Laravel\NotAModel] used.'
+            'SearchTrait must only be used with Eloquent models,'.
+            '[BestServedCold\LaravelZendSearch\Laravel\NotAModel] used.'
         );
 
         $notAModel = new NotAModel;
