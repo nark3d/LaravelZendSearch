@@ -28,8 +28,8 @@ class Index
     /**
      * Open
      *
-     * @param  bool $path
-     * @param  bool $forceCreate
+     * @param  string|boolean $path
+     * @param  bool           $forceCreate
      * @return $this
      * @throws ExceptionInterface
      * @throws \Exception
