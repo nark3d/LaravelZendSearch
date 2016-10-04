@@ -13,9 +13,21 @@ use Illuminate\Support\Facades\App;
  */
 class Destroy extends Command
 {
+    /**
+     * @var string $name
+     */
     protected $name = 'search:destroy';
+
+    /**
+     * @var string $description
+     */
     protected $description = 'Destroys the search index.';
 
+    /**
+     * Handle
+     *
+     * @return void
+     */
     public function handle()
     {
         $config = App::make(Repository::class);

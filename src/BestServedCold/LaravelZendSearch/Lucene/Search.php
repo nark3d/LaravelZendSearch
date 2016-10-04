@@ -17,9 +17,24 @@ use ZendSearch\Lucene\Search\QueryParser;
  */
 class Search
 {
+    /**
+     * @var Index $index
+     */
     protected $index;
+
+    /**
+     * @var Query $query
+     */
     protected $query;
+
+    /**
+     * @var string $path
+     */
     private $path;
+
+    /**
+     * @var int $limit
+     */
     private $limit = 25;
 
     /**
@@ -115,9 +130,10 @@ class Search
     }
 
     /**
-     * @param $string
-     * @param bool   $field
-     * @param array  $options
+     * @param  $string
+     * @param  bool   $field
+     * @param  array  $options
+     * @return $this
      */
     public function wildcard($string, $field = false, $options = [ ])
     {

@@ -15,8 +15,18 @@ class Store extends LuceneStore
 {
     use EloquentTrait;
 
+    /**
+     * @var Index $index
+     */
     private $index;
 
+    /**
+     * Store constructor.
+     *
+     * @param Delete $delete
+     * @param Insert $insert
+     * @param Index $index
+     */
     public function __construct(Delete $delete, Insert $insert, Index $index)
     {
         parent::__construct($delete, $insert);

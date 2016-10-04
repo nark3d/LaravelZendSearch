@@ -13,11 +13,33 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class RebuildModels
 {
+    /**
+     * @var ProgressBar $progressBar
+     */
     private $progressBar;
+
+    /**
+     * @var Store $store
+     */
     private $store;
+
+    /**
+     * @var OutputInterface $store
+     */
     private $output;
+
+    /**
+     * @var array|bool $models
+     */
     private $models = [ ];
 
+    /**
+     * RebuildModels constructor.
+     *
+     * @param ProgressBar $progressBar
+     * @param Store $store
+     * @param OutputInterface $output
+     */
     public function __construct(ProgressBar $progressBar, Store $store, OutputInterface $output)
     {
         $this->progressBar = $progressBar;
@@ -42,6 +64,9 @@ class RebuildModels
         return empty($models) ? [ ] : $models;
     }
 
+    /**
+     * @param array $models
+     */
     public function setModels(array $models = [ ])
     {
         $this->models = $models;
@@ -71,6 +96,9 @@ class RebuildModels
     }
 
     /**
+     * Loop Models
+     *
+     * @return void
      */
     private function loopModels()
     {

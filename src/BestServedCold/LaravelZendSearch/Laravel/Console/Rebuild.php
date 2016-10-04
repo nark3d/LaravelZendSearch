@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class RebuildCommand
@@ -15,10 +16,24 @@ use Symfony\Component\Console\Output\NullOutput;
  */
 class Rebuild extends Command
 {
+    /**
+     * @var string $name
+     */
     protected $name = 'search:rebuild';
+
+    /**
+     * @var string $description
+     */
     protected $description = 'Rebuild the search index';
 
     /**
+     * @var OutputInterface
+     */
+    protected $output;
+
+    /**
+     * Handle
+     *
      * @return void
      */
     public function handle()

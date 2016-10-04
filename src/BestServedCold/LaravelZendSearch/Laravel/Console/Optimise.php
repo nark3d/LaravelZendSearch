@@ -12,9 +12,21 @@ use Illuminate\Support\Facades\App;
  */
 class Optimise extends Command
 {
+    /**
+     * @var string $name
+     */
     protected $name = 'search:optimise';
+
+    /**
+     * @var string $description
+     */
     protected $description = 'Optimise the search index storage.';
 
+    /**
+     * Handle
+     *
+     * @return void
+     */
     public function handle()
     {
         $this->info('Optimising search index.');

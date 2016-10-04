@@ -11,8 +11,17 @@ use Illuminate\Support\Facades\App;
  */
 trait SearchTrait
 {
+    /**
+     * @var array $searchFields
+     */
     private static $searchFields = [ ];
 
+    /**
+     * Set up
+     *
+     * @throws \Exception
+     * @return void
+     */
     private static function setup()
     {
         if (!is_subclass_of(static::class, Model::class)) {
@@ -24,6 +33,9 @@ trait SearchTrait
         static::searchFields();
     }
 
+    /**
+     * @throws \Exception
+     */
     private static function searchFields()
     {
         throw new \Exception("Method [searchFields] must exist and be static.");
@@ -58,6 +70,9 @@ trait SearchTrait
         return $search;
     }
 
+    /**
+     * @return void
+     */
     public static function bootSearchTrait()
     {
         self::setup();

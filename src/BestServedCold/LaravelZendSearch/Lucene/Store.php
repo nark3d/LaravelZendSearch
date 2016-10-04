@@ -13,11 +13,6 @@ use BestServedCold\LaravelZendSearch\Lucene\Store\Delete;
 class Store
 {
     /**
-     * @var string
-     */
-    private $uid;
-
-    /**
      * @var Delete
      */
     private $delete;

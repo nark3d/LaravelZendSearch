@@ -10,8 +10,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 trait EloquentTrait
 {
+    /**
+     * @var string $key
+     */
     protected $key = 'id';
+
+    /**
+     * @var Model $model
+     */
     protected $model;
+
+    /**
+     * @var
+     */
     protected $uid;
 
     /**
