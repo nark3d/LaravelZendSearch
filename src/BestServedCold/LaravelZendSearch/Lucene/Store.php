@@ -37,26 +37,28 @@ class Store
     /**
      * Delete
      *
+     * @param  Index          $index
      * @param  integer        $id
      * @param  boolean|string $uid
      * @return Delete
      */
-    public function delete($id, $uid = false)
+    public function delete(Index $index, $id, $uid = false)
     {
-        return $this->delete->delete($id, $uid);
+        return $this->delete->delete($index, $id, $uid);
     }
 
     /**
      * Insert
      *
-     * @param  $id
-     * @param  array $fields
+     * @param  Index           $index
+     * @param  int             $id
+     * @param  array          $fields
      * @param  string|boolean  $uid
      * @return mixed
      */
-    public function insert($id, array $fields, $uid = false, $deleteFirst = true)
+    public function insert(Index $index, $id, array $fields, $uid = false, $deleteFirst = true)
     {
-        $deleteFirst ? $this->delete($id, $uid) : null;
-        return $this->insert->insert($id, $fields, $uid);
+        $deleteFirst ? $this->delete($index, $id, $uid) : null;
+        return $this->insert->insert($index, $id, $fields, $uid);
     }
 }

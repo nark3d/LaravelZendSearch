@@ -14,11 +14,6 @@ use ZendSearch\Lucene\Document\Field;
 class Insert
 {
     /**
-     * @var Index
-     */
-    private $index;
-
-    /**
      * @var Document
      */
     private $document;
@@ -26,12 +21,10 @@ class Insert
     /**
      * Insert constructor.
      *
-     * @param Index    $index
      * @param Document $document
      */
-    public function __construct(Index $index, Document $document)
+    public function __construct(Document $document)
     {
-        $this->index    = $index;
         $this->document = $document;
     }
 
@@ -39,16 +32,17 @@ class Insert
      * Insert
      *
      * @param  $id
+     * @param  Index          $index
      * @param  array          $fields     fields that are indexed
      * @param  boolean|string $uid        unique identifier, if required
      * @return mixed
      */
-    public function insert($id, array $fields, $uid = false)
+    public function insert(Index $index, $id, array $fields, $uid = false)
     {
         $this->document->addField($this->field('xref_id', $id));
         $this->document = $this->addUid($this->document, $uid);
         $this->document = $this->addFields($this->document, $fields);
-        return $this->index->get()->addDocument($this->document);
+        return $index->get()->addDocument($this->document);
     }
 
     /**

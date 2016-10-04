@@ -17,8 +17,8 @@ class InsertTest extends TestCase
         $luceneIndex->method('addDocument')->willReturn(null);
         $index->method('get')->willReturn($luceneIndex);
         $document = $this->getMockBuilder(Document::class)->disableOriginalConstructor()->getMock();
-        $insert = new Insert($index, $document);
+        $insert = new Insert($document);
 
-        $this->assertNull($insert->insert(1, ['some', 'shit'], 'someUid'));
+        $this->assertNull($insert->insert($index, 1, ['some', 'shit'], 'someUid'));
     }
 }

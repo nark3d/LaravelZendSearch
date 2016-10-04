@@ -18,31 +18,25 @@ class Delete
     private $search;
 
     /**
-     * @var
-     */
-    private $index;
-
-    /**
      * Delete constructor.
      *
      * @param Search $search
-     * @param Index  $index
      */
-    public function __construct(Search $search, Index $index)
+    public function __construct(Search $search)
     {
         $this->search = $search;
         $this->search->path(config('search.index.path'));
-        $this->index  = $index;
     }
 
     /**
      * Delete
      *
+     * @param  Index          $index
      * @param  $id
      * @param  string|boolean $uid
      * @return $this
      */
-    public function delete($id, $uid = false)
+    public function delete(Index $index, $id, $uid = false)
     {
         $this->search->where($id, 'xref_id');
 
@@ -51,7 +45,7 @@ class Delete
         }
 
         foreach ($this->search->hits() as $hit) {
-            $this->index->get()->delete($hit);
+            $index->get()->delete($hit);
         }
 
         return $this;

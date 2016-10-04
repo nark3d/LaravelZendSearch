@@ -5,6 +5,7 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 use BestServedCold\LaravelZendSearch\Lucene\Store\Delete;
 use BestServedCold\LaravelZendSearch\Lucene\Store\Insert;
 use BestServedCold\LaravelZendSearch\TestCase;
+use BestServedCold\LaravelZendSearch\Lucene\Index as LuceneIndex;
 
 class StoreTest extends TestCase
 {
@@ -31,11 +32,16 @@ class StoreTest extends TestCase
 
     public function testDelete()
     {
-        $this->assertInstanceOf(Delete::class, $this->store->delete(1));
+        $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
+        $this->assertInstanceOf(Delete::class, $this->store->delete($index, 1));
     }
 
     public function testInsert()
     {
-        $this->assertInstanceOf(Insert::class, $this->store->insert(1, ['bob' => 'mary']));
+        $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
+        $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
+        $luceneIndex->method('addDocument')->willReturn(null);
+        $index->method('get')->willReturn($luceneIndex);
+        $this->assertInstanceOf(Insert::class, $this->store->insert($index, 1, ['bob' => 'mary']));
     }
 }

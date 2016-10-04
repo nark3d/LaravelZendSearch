@@ -14,12 +14,14 @@ class DeleteTest extends TestCase
         $search = $this->getMockBuilder(Search::class)->disableOriginalConstructor()->getMock();
         $search->method('hits')->willReturn(['bob', 'mary']);
         $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
+
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('addDocument')->willReturn(null);
+
         $index->method('get')->willReturn($luceneIndex);
         $delete = new Delete($search, $index);
 
-        $this->assertInstanceOf(Delete::class, $delete->delete(1, 'someUid'));
+        $this->assertInstanceOf(Delete::class, $delete->delete($index, 1, 'someUid'));
 
     }
 }

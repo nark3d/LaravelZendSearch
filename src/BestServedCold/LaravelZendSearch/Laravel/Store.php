@@ -43,6 +43,7 @@ class Store extends LuceneStore
         $this->index->open();
         $this->model($model);
         return $this->insert(
+            $this->index,
             $model->id,
             $this->filterFields($model),
             $this->uid,
@@ -55,7 +56,9 @@ class Store extends LuceneStore
      */
     public function deleteModel(Model $model)
     {
-        $this->delete($model->id, $this->uid);
+        $this->index->open();
+        $this->model($model);
+        $this->delete($this->index, $model->id, $this->uid);
     }
 
     /**
