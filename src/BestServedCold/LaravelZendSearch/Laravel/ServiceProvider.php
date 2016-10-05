@@ -2,6 +2,7 @@
 
 namespace BestServedCold\LaravelZendSearch\Laravel;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\ServiceProvider as Provider;
 use BestServedCold\LaravelZendSearch\Laravel\Console\Rebuild;
 use BestServedCold\LaravelZendSearch\Laravel\Console\Destroy;
@@ -25,6 +26,20 @@ class ServiceProvider extends Provider
     }
 
     /**
+     * @param string $command
+     */
+    private function registerCommand($command)
+    {
+        $reflection = new \ReflectionClass($command);
+        $this->app->singleton(
+            'command.search.' . strtolower($reflection->getShortName()),
+            function() use ($command) {
+                return new $command;
+            }
+        );
+    }
+
+    /**
      * Register the application services.
      *
      * @return             void
@@ -32,32 +47,11 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->publishes(
-            [
-            __DIR__ . '/../../../config/search.php' => config_path('search.php'),
-            ]
-        );
+        $this->publishes([ __DIR__ . '/../../../config/search.php' => config_path('search.php'), ]);
 
-        $this->app->singleton(
-            'command.search.rebuild',
-            function() {
-                return new Rebuild;
-            }
-        );
-
-        $this->app->singleton(
-            'command.search.destroy',
-            function() {
-                return new Destroy;
-            }
-        );
-
-        $this->app->singleton(
-            'command.search.optimise',
-            function() {
-                return new Optimise;
-            }
-        );
+        $this->registerCommand(Rebuild::class);
+        $this->registerCommand(Destroy::class);
+        $this->registerCommand(Optimise::class);
 
         $this->commands([ 'command.search.rebuild', 'command.search.optimise', 'command.search.destroy' ]);
     }
