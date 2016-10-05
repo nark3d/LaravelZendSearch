@@ -20,6 +20,18 @@ class SearchTraitTest extends TestCase
         $this->assertEquals(['bob', 'mary'], DummyModel::getSearchFields());
     }
 
+    public function testSetBoostFields()
+    {
+        DummyModel::setBoostFields(['bob' => 0.8, 'mary' => 1.2]);
+        $this->assertEquals(['bob' => 0.8, 'mary' => 1.2], DummyModel::getBoostFields());
+    }
+
+    public function testSetBootFieldsException()
+    {
+        $this->setExpectedException(\Exception::class, 'Boost field values must be integers or floats.');
+        DummyModel::setBoostFields(['bob' => 'string', 'mary' => '1.2']);
+    }
+
     public function testSearch()
     {
         $this->assertInstanceOf(Search::class, DummyModel::search());
