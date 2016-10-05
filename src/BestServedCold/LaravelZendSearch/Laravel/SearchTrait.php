@@ -79,7 +79,6 @@ trait SearchTrait
         })) {
             throw new \Exception('Boost field values must be integers or floats.');
         }
-        // @todo We need some sort of checking here to make sure that the array is one of fields and floats/ints
         self::$boostFeilds = $fields;
     }
 
