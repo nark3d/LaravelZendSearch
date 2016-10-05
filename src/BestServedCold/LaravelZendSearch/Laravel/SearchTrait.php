@@ -17,6 +17,11 @@ trait SearchTrait
     private static $searchFields = [ ];
 
     /**
+     * @var array $boostFeilds
+     */
+    private static $boostFeilds = [ ];
+
+    /**
      * Set up
      *
      * @throws \Exception
@@ -35,6 +40,11 @@ trait SearchTrait
     }
 
     /**
+     * Search Fields
+     *
+     * This should never get called.  If it does get called, then it means that the Model which is using
+     * "SearchTrait" has not declared a "searchFields" method and made it static.
+     *
      * @throws \Exception
      */
     private static function searchFields()
@@ -56,6 +66,28 @@ trait SearchTrait
     public static function getSearchFields()
     {
         return self::$searchFields;
+    }
+
+    /**
+     * @param array $fields
+     * @throws \Exception
+     */
+    public static function setBoostFields(array $fields)
+    {
+        if (! array_filter($fields, function($value) {
+            return is_int($value) || is_float($value);
+        })) {
+            throw new \Exception('Boost field values must be integers or floats.');
+        }
+        self::$boostFeilds = $fields;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getBoostFields()
+    {
+        return self::$boostFeilds;
     }
 
     /**

@@ -13,6 +13,7 @@ tools:
             standard: "PSR2"
 filter:
     paths: [src/*]
+    excluded_paths: [tests/*]
 checks:
     php:
         avoid_todo_comments: true
