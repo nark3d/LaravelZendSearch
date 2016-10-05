@@ -2,7 +2,6 @@
 
 namespace BestServedCold\LaravelZendSearch\Laravel;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\ServiceProvider as Provider;
 use BestServedCold\LaravelZendSearch\Laravel\Console\Rebuild;
 use BestServedCold\LaravelZendSearch\Laravel\Console\Destroy;
