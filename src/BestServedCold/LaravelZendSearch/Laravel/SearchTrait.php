@@ -14,12 +14,12 @@ trait SearchTrait
     /**
      * @var array $searchFields
      */
-    private static $searchFields = [ ];
+    private static $searchFields = [];
 
     /**
      * @var array $boostFeilds
      */
-    private static $boostFeilds = [ ];
+    private static $boostFeilds = [];
 
     /**
      * Set up
@@ -32,7 +32,7 @@ trait SearchTrait
         // Ignoring PHP bug #53727 here, Eloquent Models implement several interfaces.
         if (!is_subclass_of(static::class, Model::class)) {
             throw new \Exception(
-                'SearchTrait must only be used with Eloquent models, [' . get_called_class() . '] used.'
+                'SearchTrait must only be used with Eloquent models, ['.get_called_class().'] used.'
             );
         }
 
@@ -74,7 +74,7 @@ trait SearchTrait
      */
     public static function setBoostFields(array $fields)
     {
-        if (! array_filter($fields, function($value) {
+        if (!array_filter($fields, function($value) {
             return is_int($value) || is_float($value);
         })) {
             throw new \Exception('Boost field values must be integers or floats.');

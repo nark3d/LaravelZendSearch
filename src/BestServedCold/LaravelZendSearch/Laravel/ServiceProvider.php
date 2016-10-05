@@ -21,7 +21,7 @@ class ServiceProvider extends Provider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../../config/search.php', 'search');
+        $this->mergeConfigFrom(__DIR__.'/../../../config/search.php', 'search');
     }
 
     /**
@@ -31,7 +31,7 @@ class ServiceProvider extends Provider
     {
         $reflection = new \ReflectionClass($command);
         $this->app->singleton(
-            'command.search.' . strtolower($reflection->getShortName()),
+            'command.search.'.strtolower($reflection->getShortName()),
             function() use ($command) {
                 return new $command;
             }
@@ -46,13 +46,13 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->publishes([ __DIR__ . '/../../../config/search.php' => config_path('search.php'), ]);
+        $this->publishes([__DIR__.'/../../../config/search.php' => config_path('search.php'), ]);
 
         $this->registerCommand(Rebuild::class);
         $this->registerCommand(Destroy::class);
         $this->registerCommand(Optimise::class);
 
-        $this->commands([ 'command.search.rebuild', 'command.search.optimise', 'command.search.destroy' ]);
+        $this->commands(['command.search.rebuild', 'command.search.optimise', 'command.search.destroy']);
     }
 
 
@@ -61,6 +61,6 @@ class ServiceProvider extends Provider
      */
     public function provides()
     {
-        return [ 'search', 'command.search.rebuild', 'command.search.optimise', 'command.search.destroy' ];
+        return ['search', 'command.search.rebuild', 'command.search.optimise', 'command.search.destroy'];
     }
 }

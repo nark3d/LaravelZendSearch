@@ -31,7 +31,7 @@ class RebuildModels
     /**
      * @var array $models
      */
-    private $models = [ ];
+    private $models = [];
 
     /**
      * RebuildModels constructor.
@@ -57,7 +57,7 @@ class RebuildModels
         foreach (get_declared_classes() as $class) {
             // Ignoring PHP bug #53727 here, Eloquent Models implement several interfaces.
             if (is_subclass_of($class, Model::class) && method_exists($class, 'searchFields')) {
-                $models[ ] = $class;
+                $models[] = $class;
             }
         }
 
@@ -67,7 +67,7 @@ class RebuildModels
     /**
      * @param array $models
      */
-    public function setModels(array $models = [ ])
+    public function setModels(array $models = [])
     {
         $this->models = $models;
     }
@@ -91,7 +91,7 @@ class RebuildModels
 
         $this->loopModels();
 
-        $this->output('comment', PHP_EOL . 'Search engine rebuild complete.');
+        $this->output('comment', PHP_EOL.'Search engine rebuild complete.');
         return $this->output;
     }
 
@@ -112,12 +112,12 @@ class RebuildModels
      */
     private function rebuildModel(Model $model)
     {
-        $this->output('comment', 'Creating index for model [' . $model->getTable() . ']');
+        $this->output('comment', 'Creating index for model ['.$model->getTable().']');
 
         if ($model->count() === 0) {
             $this->output(
                 'comment',
-                'No records for model [' . $model->getTable() . '].'
+                'No records for model ['.$model->getTable().'].'
             );
             return;
         }
