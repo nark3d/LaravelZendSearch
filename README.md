@@ -2,7 +2,10 @@
 [![Build Status](https://scrutinizer-ci.com/g/nark3d/LaravelZendSearch/badges/build.png?b=master)](https://scrutinizer-ci.com/g/nark3d/LaravelZendSearch/build-status/master)
 [![Code Coverage](https://scrutinizer-ci.com/g/nark3d/LaravelZendSearch/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nark3d/LaravelZendSearch/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nark3d/LaravelZendSearch/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nark3d/LaravelZendSearch/?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/best-served-cold/laravel-zendsearch.svg)](https://packagist.org/packages/best-served-cold/laravel-zendsearch)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d042f6a1-0877-441c-92b7-bb5fe51d6466/mini.png)](https://insight.sensiolabs.com/projects/d042f6a1-0877-441c-92b7-bb5fe51d6466)
+
+
 # LaravelZendSearch
 A fast implementation of ZendSearch hooking into Laravel eloquent.  
 
@@ -10,7 +13,7 @@ After using a couple of packages for ZendSearch in Laravel I was disappointed wi
 
 ## Installation
 
-Follow these steps to get the package in place
+Follow these steps to get the package in place:
 
 ### Setup
 
@@ -18,7 +21,7 @@ Follow these steps to get the package in place
 composer require best-served-cold/laravel-zendsearch
 ```
 
-Update composer and then add the `ServiceProvider` to `config/app.php`
+Update composer and then add the `ServiceProvider` to `config/app.php`:
 
 ```php
 'providers' => [
@@ -27,7 +30,7 @@ Update composer and then add the `ServiceProvider` to `config/app.php`
 ],
 ```
 
-I'm not keen on Facades, but if you want to use one, add it to the aliases in `config/app.php`
+I'm not keen on Facades, but if you want to use one, add it to the aliases in `config/app.php`:
 
 ```php
 'aliases' => [
@@ -38,7 +41,7 @@ I'm not keen on Facades, but if you want to use one, add it to the aliases in `c
 
 ### Publish
 
-Get your config published
+Get your config published:
 
 ```bash
 php artisan vendor:publish
@@ -48,7 +51,7 @@ php artisan vendor:publish
 
 ### Indexing
 
-Simply add the ```SearchTrait``` and use it in the models you want to use.
+Simply add the ```SearchTrait``` and use it in the models you want to use:
 
 ```php
 
@@ -138,10 +141,14 @@ $search->term('complete_term', 'field');
 
 ## Features to come
 
-This is my first iteration and I've made it mainly for my own use on another project, but I'll be adding the following in due course
+This is my first iteration and I've made it mainly for my own use on another project, but I'll be adding the following in due course:
 
 * Boosting configuration within the model
 * Stopwords and stemwords
 * Scheduled optimisation out of the box
 * Tidy up of the unit tests, they're a bit messy at the moment
 * Option passthrough added for Wildcard, Phrase, Fuzzy
+
+## Disclaimer
+
+This is still a beta package, so exercise caution until the first stable release.  Please do raise issues or feature requests and I'll do my best to resolve.
