@@ -49,12 +49,11 @@ class RebuildModels
     }
 
     /**
+     * @param array $models
      * @return array
      */
-    private function getModels()
+    private function getModels(array $models = [])
     {
-        $models = [ ];
-
         foreach (get_declared_classes() as $class) {
             // Ignoring PHP bug #53727 here, Eloquent Models implement several interfaces.
             if (is_subclass_of($class, Model::class) && method_exists($class, 'searchFields')) {
@@ -62,7 +61,7 @@ class RebuildModels
             }
         }
 
-        return empty($models) ? [ ] : $models;
+        return $models;
     }
 
     /**
