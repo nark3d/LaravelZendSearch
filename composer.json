@@ -1,7 +1,7 @@
 {
     "name": "best-served-cold/laravel-zendsearch",
-    "description": "ZendSearch implementation for Laravel",
-    "keywords": ["laravel", "lucene", "zendsearch", "eloquent", "search"],
+    "description": "ZendSearch implementation for Laravel - Local file based search engine",
+    "keywords": ["laravel", "lucene", "zendsearch", "eloquent", "search", "local search engine", "file based search engine"],
     "license": "MIT",
     "authors": [
         {
