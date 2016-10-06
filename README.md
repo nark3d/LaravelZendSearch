@@ -77,6 +77,10 @@ Then add the method ```searchFields()``` and populate it with the fields you wan
 
 And away you go, your index will build automatically from there.
 
+#### Relations
+
+If you want to index relations, make sure you create your ```getRelationAttribute()``` method and then add the relation to the ```protected $appends = [$relation];``` array in your model.
+
 ### Building
 
 If you have existing data or have changed your search fields, you can simply rebuild the index from scratch:

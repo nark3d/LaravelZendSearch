@@ -52,6 +52,6 @@ class Rebuild extends Command
         $rebuild->rebuild();
 
         $this->call('search:optimise', $this->getArguments());
-        $this->info(PHP_EOL . 'Search engine rebuild complete.');
+        $this->info(PHP_EOL.'Search engine rebuild complete.');
     }
 }
