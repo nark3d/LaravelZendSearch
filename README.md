@@ -152,6 +152,8 @@ This is my first iteration and I've made it mainly for my own use on another pro
 * Scheduled optimisation out of the box
 * Tidy up of the unit tests, they're a bit messy at the moment
 * Option passthrough added for Wildcard, Phrase, Fuzzy
+* Add in highlighting options
+* Work on an efficient "offset" mechanism to go with the limit
 
 ## Disclaimer
 
