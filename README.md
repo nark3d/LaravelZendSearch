@@ -7,9 +7,9 @@
 
 
 # LaravelZendSearch
-A fast implementation of [ZendSearch](http://zf2.readthedocs.io/en/latest/tutorials/lucene.intro.html) hooking into Laravel eloquent.  Utilise the power of [Lucene](http://zf2.readthedocs.io/en/latest/tutorials/lucene.intro.html) without installing a secondary service such as Elasticsearch or Solr. 
+A fast implementation of [ZendSearch](http://zf2.readthedocs.io/en/latest/tutorials/lucene.intro.html) hooking into Laravel eloquent.  Utilise the power of Lucene without installing a secondary service such as Elasticsearch or Solr. 
 
-After using a couple of packages for ZendSearch in Laravel I was disappointed with the performance, so I created my own. 
+After using a couple of packages for [ZendSearch](http://zf2.readthedocs.io/en/latest/tutorials/lucene.intro.html) in Laravel I was disappointed with the performance, so I created my own. 
 ## Installation
 
 Follow these steps to get the package in place:
