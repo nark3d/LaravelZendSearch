@@ -47,7 +47,8 @@ class Store extends LuceneStore
             $model->id,
             $this->filterFields($model),
             $this->uid,
-            $deleteFirst
+            $deleteFirst,
+            $model::getBoostFields()
         );
     }
 

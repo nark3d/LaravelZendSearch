@@ -17,7 +17,7 @@ trait SearchTrait
     private static $searchFields = [];
 
     /**
-     * @var array $boostFeilds
+     * @var array $boostFields
      */
     private static $boostFields = [];
 
