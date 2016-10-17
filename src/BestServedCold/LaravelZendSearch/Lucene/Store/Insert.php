@@ -46,9 +46,9 @@ class Insert
     }
 
     /**
-     * @param  string $field
-     * @param  string $value
-     * @param  string $type
+     * @param  string|integer $field
+     * @param  string         $value
+     * @param  string         $type
      * @return Field
      */
     private function field($field, $value, $type = 'keyword')
