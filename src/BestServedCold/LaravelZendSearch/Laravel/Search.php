@@ -57,7 +57,7 @@ class Search extends LuceneSearch
      */
     public function hits()
     {
-        if (! empty($this->hits)) {
+        if (!empty($this->hits)) {
             return $this->hits;
         }
 

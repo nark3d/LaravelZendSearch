@@ -31,7 +31,7 @@ class Insert
     /**
      * Insert
      *
-     * @param  $id
+     * @param  integer $id
      * @param  Index          $index
      * @param  array          $fields     fields that are indexed
      * @param  boolean|string $uid        unique identifier, if required
