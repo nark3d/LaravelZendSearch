@@ -39,6 +39,11 @@ class Search
     private $limit = 25;
 
     /**
+     * @var int $offset
+     */
+    private $offset = 0;
+
+    /**
      * @var Boolean
      */
     private static $boolean;
@@ -73,12 +78,22 @@ class Search
     }
 
     /**
-     * @param $limit
+     * @param  integer $limit
      * @return $this
      */
     public function limit($limit)
     {
         $this->limit = $limit;
+        return $this;
+    }
+
+    /**
+     * @param  integer $offset
+     * @return $this
+     */
+    public function offset($offset)
+    {
+        $this->offset = $offset;
         return $this;
     }
 
@@ -227,9 +242,24 @@ class Search
      */
     public function hits()
     {
-        $index = $this->index->limit($this->limit)->open($this->path)->get();
+        $index = $this->index->limit($this->limit + $this->offset)->open($this->path)->get();
         self::$boolean = $this->query->getBoolean();
-        return $this->mapIds($index->find(self::$boolean));
+        return $this->slice($this->mapIds($index->find(self::$boolean)));
+    }
+
+    /**
+     * Slice
+     *
+     * This may look nasty, but there really isn't another way of offsetting results Lucene, and nor would
+     * you want to really, that's not what it's designed for.  It will be quick up to a thousand and after
+     * that you should be asking the user to "refine their search".
+     *
+     * @param  mixed $hits
+     * @return array
+     */
+    public function slice($hits)
+    {
+        return $this->offset ? array_slice($hits, $this->offset) : $hits;
     }
 
     /**
