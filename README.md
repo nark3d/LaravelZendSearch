@@ -98,7 +98,7 @@ Optimise:
 php artisan search:optmise --verbose
 ```
 
-I'll work on a scheduler in the near future, but make sure you optimise your index regularly.  I'd suggest scheduling it yourself for now regularly.
+I'll work on a scheduler in the near future, but make sure you optimise your index regularly.  I'd suggest scheduling it yourself for now every hour or so.
 
 ## Searching
 
@@ -109,7 +109,13 @@ Create a search instance:
 $search = UserModel::search();
 
 // add your query
-$search->where('field', 'name');
+$search->where('string', 'field');
+
+// add an exact match
+$search->match('string', 'field');
+
+// Search all fields
+$search->where('string');
 
 // limit your query
 $search->limit(10);
@@ -121,7 +127,7 @@ $ids = $search->hits();
 $result = $search->get();
 
 // Or just chain it:
-$result = User::search()->where('term', 'field')->limit(15)->get();
+$result = User::search()->where('term', 'field')->limit(15)->offset(10)->get();
 ```
 
 ### Advanced
@@ -140,6 +146,9 @@ $search->fuzzy('term', 'field');
 
 // Term
 $search->term('complete_term', 'field');
+
+// Get the last query
+BestServedCold\LaravelZendSearch\Lucene\Search::getLastQuery()->__toString();
 ```
 
 ## Features to come
@@ -152,7 +161,6 @@ This is my first iteration and I've made it mainly for my own use on another pro
 * Tidy up of the unit tests, they're a bit messy at the moment
 * Option passthrough added for Wildcard, Phrase, Fuzzy
 * Add in highlighting options
-* Work on an efficient "offset" mechanism to go with the limit
 
 ## Disclaimer
 
