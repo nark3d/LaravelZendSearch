@@ -19,7 +19,7 @@ trait SearchTrait
     /**
      * @var array $boostFeilds
      */
-    private static $boostFeilds = [];
+    private static $boostFields = [];
 
     /**
      * Set up
@@ -79,7 +79,7 @@ trait SearchTrait
         })) {
             throw new \Exception('Boost field values must be integers or floats.');
         }
-        self::$boostFeilds = $fields;
+        self::$boostFields = $fields;
     }
 
     /**
@@ -87,7 +87,7 @@ trait SearchTrait
      */
     public static function getBoostFields()
     {
-        return self::$boostFeilds;
+        return self::$boostFields;
     }
 
     /**
