@@ -78,7 +78,7 @@ class Search
     }
 
     /**
-     * @param  integer
+     * @param  integer $limit
      * @return $this
      */
     public function limit($limit)
@@ -88,7 +88,7 @@ class Search
     }
 
     /**
-     * @param  integer
+     * @param  integer $offset
      * @return $this
      */
     public function offset($offset)
