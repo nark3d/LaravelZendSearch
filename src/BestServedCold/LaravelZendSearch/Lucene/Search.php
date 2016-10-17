@@ -3,6 +3,7 @@
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use ZendSearch\Lucene\Index\Term;
+use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\Query\Phrase;
@@ -38,6 +39,11 @@ class Search
     private $limit = 25;
 
     /**
+     * @var Boolean
+     */
+    private static $boolean;
+
+    /**
      * Search constructor.
      *
      * @param Index $index
@@ -47,6 +53,7 @@ class Search
     {
         $this->index = $index;
         $this->query = $query;
+        QueryParser::setDefaultEncoding('UTF-8');
     }
 
     /**
@@ -115,7 +122,7 @@ class Search
      */
     public function fuzzy($string, $field = null)
     {
-        $this->query->add(new Fuzzy($this->term($field, $string)));
+        $this->query->add(new Fuzzy($this->indexTerm($field, $string)));
         return $this;
     }
 
@@ -124,9 +131,9 @@ class Search
      * @param null|string   $field
      * @return Term
      */
-    protected function term($string, $field = null)
+    protected function indexTerm($string, $field = null)
     {
-        return new Term(strtoupper($string), $field);
+        return new Term(strtolower($string), $field);
     }
 
     /**
@@ -136,11 +143,16 @@ class Search
      */
     public function wildcard($string, $field = null)
     {
-        $this->query->add(new Wildcard($this->term($field, $string)));
+        $this->query->add(new Wildcard($this->indexTerm($string, $field)));
         return $this;
     }
 
     /**
+     * Where
+     *
+     * A helper method to access phrase or to pass multiple fields.  Phrase doesn't "match" exactly and
+     * allows searching within the text field rather than matching the whole string.
+     *
      * @param boolean|$string
      * @param null|string $field
      * @return $this|bool
@@ -149,8 +161,23 @@ class Search
     {
         is_array($field)
             ? $this->multiTerm($this->mapWhereArray($string, $field))
-            : $this->query->add($this->singleTerm($string, $field));
+            : $this->phrase($string, $field);
 
+        return $this;
+    }
+
+    /**
+     * Match
+     *
+     * Provides an exact pattern match.
+     *
+     * @param  $string
+     * @param  null $field
+     * @return $this
+     */
+    public function match($string, $field = null)
+    {
+        $this->query->add($this->term($string, $field));
         return $this;
     }
 
@@ -162,7 +189,7 @@ class Search
     {
         $multiTerm = new MultiTerm;
         foreach ($terms as $field => $value) {
-            $multiTerm->addTerm($this->term($value, $field), $this->query->getSign());
+            $multiTerm->addTerm($this->indexTerm($value, $field), null);
         }
 
         $this->query->add($multiTerm);
@@ -190,9 +217,9 @@ class Search
      * @param string|null $field
      * @return QueryTerm
      */
-    public function singleTerm($string, $field = null)
+    public function term($string, $field = null)
     {
-        return new QueryTerm($this->term($string, $field));
+        return new QueryTerm($this->indexTerm($string, $field));
     }
 
     /**
@@ -200,27 +227,30 @@ class Search
      */
     public function hits()
     {
-        return $this->mapIds(
-            $this->index->limit($this->limit)
-                ->open($this->path)
-                ->get()
-                ->find(
-                    $this->query->getBoolean()
-                )
-        );
+        $index = $this->index->limit($this->limit)->open($this->path)->get();
+        self::$boolean = $this->query->getBoolean();
+        return $this->mapIds($index->find(self::$boolean));
     }
 
     /**
-     * @param array|QueryHit $array
+     * @param  array|QueryHit $array
      * @return mixed
      */
     private function mapIds($array)
     {
         return array_map(
             function(QueryHit $hit) {
-                return $hit->id;
+                return isset($hit->xref_id) ? $hit->xref_id : null;
             },
             $array
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getLastQuery()
+    {
+        return self::$boolean;
     }
 }

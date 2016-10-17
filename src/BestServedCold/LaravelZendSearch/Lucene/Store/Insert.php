@@ -39,21 +39,22 @@ class Insert
      */
     public function insert(Index $index, $id, array $fields, $uid = false)
     {
-        $this->document->addField($this->field('xref_id', $id));
-        $this->document = $this->addUid($this->document, $uid);
-        $this->document = $this->addFields($this->document, $fields);
-        return $index->get()->addDocument($this->document);
+        $document = new Document;
+        $document->addField($this->field('xref_id', $id));
+        $document = $this->addUid($document, $uid);
+        $document = $this->addFields($document, $fields);
+        return $index->get()->addDocument($document);
     }
 
     /**
-     * @param  string $keyword
+     * @param  string $field
      * @param  string $value
      * @param  string $type
      * @return Field
      */
-    private function field($keyword, $value, $type = 'keyword')
+    private function field($field, $value, $type = 'keyword')
     {
-        return Field::$type($keyword, $value);
+        return Field::$type($field, strtolower(strip_tags($value)));
     }
 
     /**
@@ -64,7 +65,7 @@ class Insert
     private function addUid(Document $document, $uid = false)
     {
         if ($uid) {
-            $document->addField($this->field('uid', strtoupper($uid)));
+            $document->addField($this->field('uid', $uid));
         }
 
         return $document;
@@ -77,8 +78,8 @@ class Insert
      */
     private function addFields(Document $document, array $fields)
     {
-        foreach ($fields as $key => $field) {
-            $document->addField($this->field($key, strtoupper($field)));
+        foreach ($fields as $field => $text) {
+            $document->addField($this->field($field, $text, 'text'));
         }
 
         return $document;

@@ -52,7 +52,7 @@ class Store
      *
      * @param  Index           $index
      * @param  int             $id
-     * @param  array          $fields
+     * @param  array           $fields
      * @param  string|boolean  $uid
      * @return mixed
      */

@@ -42,12 +42,15 @@ class TestCase extends Orchestra
         ));
     }
 
-    protected function reflectionProperty($object, $property)
+    protected function reflectionProperty($object, $property, $value = null)
     {
         $reflection = new \ReflectionObject($object);
         $reflectionProperty = $reflection->getProperty($property);
         $reflectionProperty->setAccessible(true);
 
+        if ($value) {
+            $reflectionProperty->setValue($object, $value);
+        }
         return $reflectionProperty->getValue($object);
     }
 

@@ -97,8 +97,8 @@ final class SearchTest extends TestCase
 
     public function testMultiTerm()
     {
-        $terms[] = $this->search->singleTerm('keyword');
-        $terms[] = $this->search->singleTerm('keyword2');
+        $terms[] = $this->search->term('keyword');
+        $terms[] = $this->search->term('keyword2');
 
         $this->assertInstanceOf(Search::class, $this->search->multiTerm($terms));
     }
@@ -118,14 +118,12 @@ final class SearchTest extends TestCase
     {
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
 
-        $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
-
         $index = new Index($this->indexPath);
-        $index->setPath($this->indexPath); // @todo why doesn't the constructor do this?
+        $index->setPath($this->indexPath);
         $index->open();
 
         $hit = new QueryHit($luceneIndex);
-        $hit->id = 123;
+        $hit->xref_id = 123;
 
         $array = ['bob' => $hit, 'harry' => $hit, 'marge' => $hit];
 
@@ -135,6 +133,8 @@ final class SearchTest extends TestCase
         );
     }
 
-
-
+    public function testGetLastQuery()
+    {
+        $this->assertInstanceOf(Boolean::class, Search::getLastQuery());
+    }
 }

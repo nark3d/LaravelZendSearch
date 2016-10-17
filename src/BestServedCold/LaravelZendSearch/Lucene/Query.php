@@ -4,6 +4,7 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use ZendSearch\Lucene\Search\Query\Boolean as LuceneBoolean;
 use ZendSearch\Lucene\Search\Query\AbstractQuery;
+use ZendSearch\Lucene\Search\Query\Boolean;
 
 /**
  * Class Query

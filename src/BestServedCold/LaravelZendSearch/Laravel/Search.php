@@ -13,6 +13,8 @@ class Search extends LuceneSearch
 {
     use EloquentTrait;
 
+    private $hits = [];
+
     /**
      * Search constructor.
      * @param Index $index
@@ -41,17 +43,28 @@ class Search extends LuceneSearch
      */
     public function findId($id)
     {
-        $this->where($id, 'xref_id');
+        $this->match($id, 'xref_id');
         return $this;
     }
 
     /**
+     * Hits
+     *
+     * We store the hits, no point in running the query twice.  This also allows us to set the UID once for the model
+     * table name.  A new search instance is required to run against another model.
+     *
      * @return mixed
      */
     public function hits()
     {
-        $this->where($this->uid, 'uid');
-        return parent::hits();
+        if (! empty($this->hits)) {
+            return $this->hits;
+        }
+
+        $this->match($this->uid, 'uid');
+
+        $this->hits = parent::hits();
+        return $this->hits;
     }
 
     /**

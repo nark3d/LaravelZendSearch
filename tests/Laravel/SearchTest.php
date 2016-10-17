@@ -18,6 +18,7 @@ class SearchTest extends TestCase
         $queryHit = $this->getMockBuilder(QueryHit::class)->disableOriginalConstructor()->getMock();
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('find')->willReturn(['bob' => $queryHit]);
+        $luceneIndex->method('hits')->willReturn(['some' => 'hits']);
 
         $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
         $index->method('limit')->willReturnSelf();
@@ -42,5 +43,14 @@ class SearchTest extends TestCase
     public function testFind()
     {
         $this->assertInstanceOf(Search::class, $this->search->find('bob'));
+    }
+
+    public function testHits()
+    {
+        $property = ['some' => 'other', 'data'];
+
+        $property = $this->reflectionProperty($this->search, 'hits', $property);
+        $this->assertNotEquals(['bob' => null], $this->search->hits());
+        $this->assertEquals($property, $this->search->hits());
     }
 }
