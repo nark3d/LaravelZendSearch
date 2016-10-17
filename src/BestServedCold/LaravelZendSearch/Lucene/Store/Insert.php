@@ -39,11 +39,10 @@ class Insert
      */
     public function insert(Index $index, $id, array $fields, $uid = false)
     {
-        $document = new Document;
-        $document->addField($this->field('xref_id', $id));
-        $document = $this->addUid($document, $uid);
-        $document = $this->addFields($document, $fields);
-        return $index->get()->addDocument($document);
+        $this->document->addField($this->field('xref_id', $id));
+        $this->document = $this->addUid($this->document, $uid);
+        $this->document = $this->addFields($this->document, $fields);
+        return $index->get()->addDocument($this->document);
     }
 
     /**
