@@ -4,7 +4,6 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use ZendSearch\Lucene\Analysis\TokenFilter\StopWords;
 use ZendSearch\Lucene\Index\Term;
-use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\Query\Phrase;

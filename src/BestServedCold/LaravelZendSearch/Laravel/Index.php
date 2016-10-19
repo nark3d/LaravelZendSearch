@@ -30,13 +30,21 @@ class Index extends LuceneIndex
     private function addFilters(array $filters = [], Filesystem $filesystem)
     {
         foreach ($filters as $filter => $switch) {
-            if ($switch !== false) {
-                if ($filter === 'StopWords' && ! is_array($switch)) {
-                    Filter::addStopWordFilter($switch === true ? 'en' : $switch, $filesystem);
-                } else {
-                    Filter::addFilter($filter, $switch === true ? [] : [$switch]);
-                }
-            }
+            $switch === false ? null : $this->handleFilter($switch, $filter, $filesystem);
+        }
+    }
+
+    /**
+     * @param $switch
+     * @param $filter
+     * @param Filesystem $filesystem
+     */
+    private function handleFilter($switch, $filter, Filesystem $filesystem)
+    {
+        if ($filter === 'StopWords' && ! is_array($switch)) {
+            Filter::addStopWordFilter($switch === true ? 'en' : $switch, $filesystem);
+        } else {
+            Filter::addFilter($filter, $switch === true ? [] : [$switch]);
         }
     }
 }
