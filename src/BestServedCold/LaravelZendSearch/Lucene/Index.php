@@ -23,8 +23,16 @@ class Index
      */
     protected $path;
 
+    /**
+     * @var Filter
+     */
     protected $filter;
 
+    /**
+     * Index constructor.
+     *
+     * @param Filter $filter
+     */
     public function __construct(Filter $filter)
     {
         $this->filter = $filter;

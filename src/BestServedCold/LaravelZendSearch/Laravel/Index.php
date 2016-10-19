@@ -31,7 +31,7 @@ class Index extends LuceneIndex
     {
         foreach ($filters as $filter => $switch) {
             if ($switch !== false) {
-                if ($filter === 'StopWords') {
+                if ($filter === 'StopWords' && ! is_array($switch)) {
                     Filter::addStopWordFilter($switch === true ? 'en' : $switch, $filesystem);
                 } else {
                     Filter::addFilter($filter, $switch === true ? [] : [$switch]);

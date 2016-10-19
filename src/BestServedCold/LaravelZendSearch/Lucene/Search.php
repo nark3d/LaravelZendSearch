@@ -39,8 +39,6 @@ class Search
      */
     private $limit = 25;
 
-    private $stopwords;
-
     /**
      * @var Boolean
      */
