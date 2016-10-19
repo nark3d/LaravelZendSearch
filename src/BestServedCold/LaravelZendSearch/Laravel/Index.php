@@ -41,10 +41,26 @@ class Index extends LuceneIndex
      */
     private function handleFilter($switch, $filter, Filesystem $filesystem)
     {
-        if ($filter === 'StopWords' && ! is_array($switch)) {
-            Filter::addStopWordFilter($switch === true ? 'en' : $switch, $filesystem);
-        } else {
-            Filter::addFilter($filter, $switch === true ? [] : [$switch]);
-        }
+        $filter === 'StopWords' && !is_array($switch)
+            ? $this->stopWordFilter($filter, $switch, $filesystem)
+            : $this->filter($filter, $switch);
+    }
+
+    /**
+     * @param $filter
+     * @param $switch
+     */
+    private function filter($filter, $switch)
+    {
+        Filter::addFilter($filter, $switch === true ? [] : [$switch]);
+    }
+
+    /**
+     * @param $switch
+     * @param Filesystem $filesystem
+     */
+    private function stopWordFilter($switch, Filesystem $filesystem)
+    {
+        Filter::addStopWordFilter($switch === true ? 'en' : $switch, $filesystem);
     }
 }
