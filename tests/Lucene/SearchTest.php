@@ -4,6 +4,7 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\TestCase;
 
+use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
 use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Index as LuceneIndex;
@@ -65,7 +66,7 @@ final class SearchTest extends TestCase
             ->method('existingMethod')
             ->will($this->returnValue('something'));
 
-        $search = new Search(new Index($this->app->config), $mock);
+        $search = new Search(new Index(new Filter(new CaseInsensitive), $this->app->config), $mock);
 
         $this->assertInstanceOf(Search::class, $search->existingMethod());
     }
@@ -124,7 +125,7 @@ final class SearchTest extends TestCase
     {
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
 
-        $index = new Index($this->indexPath);
+        $index = new Index(new Filter(new CaseInsensitive));
         $index->setPath($this->indexPath);
         $index->open();
 

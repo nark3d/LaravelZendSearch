@@ -3,7 +3,6 @@
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use ZendSearch\Lucene\Index\Term;
-use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
 use ZendSearch\Lucene\Search\Query\Phrase;
@@ -11,6 +10,7 @@ use ZendSearch\Lucene\Search\Query\Wildcard;
 use ZendSearch\Lucene\Search\Query\Term as QueryTerm;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Search\QueryParser;
+use ZendSearch\Lucene\Search\Query\Boolean as LuceneBoolean;
 
 /**
  * Class Search
@@ -44,7 +44,7 @@ class Search
     private $offset = 0;
 
     /**
-     * @var Boolean
+     * @var LuceneBoolean
      */
     private static $boolean;
 
@@ -187,7 +187,7 @@ class Search
      * Provides an exact pattern match.
      *
      * @param  $string
-     * @param  null $field
+     * @param  string $field
      * @return $this
      */
     public function match($string, $field = null)
@@ -277,7 +277,7 @@ class Search
     }
 
     /**
-     * @return mixed
+     * @return LuceneBoolean
      */
     public static function getLastQuery()
     {

@@ -3,6 +3,7 @@
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\TestCase;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
 use ZendSearch\Lucene\Lucene;
 use ZendSearch\Lucene\Exception\RuntimeException;
 use ZendSearch\Lucene\Index as LuceneIndex;
@@ -22,7 +23,7 @@ final class IndexTest extends TestCase
             'No path specified nor config variable set.'
         );
 
-        $index = new Index;
+        $index = new Index(new Filter(new CaseInsensitive));
         $index->setPath(null);
 
         try {
@@ -36,7 +37,7 @@ final class IndexTest extends TestCase
     {
         $this->setExpectedException(RuntimeException::class);
 
-        $index = new Index;
+        $index = new Index(new Filter(new CaseInsensitive));
         try {
             $index->open($this->indexPath, false);
         } catch (RuntimeException $e) {
@@ -46,7 +47,7 @@ final class IndexTest extends TestCase
 
     public function testOpenAndGet()
     {
-        $index = new Index;
+        $index = new Index(new Filter(new CaseInsensitive));
         $index->open($this->indexPath);
 
         $this->assertInstanceOf(LuceneIndex::class, $index->get());
@@ -54,7 +55,7 @@ final class IndexTest extends TestCase
 
     public function testLimit()
     {
-        $index = new Index;
+        $index = new Index(new Filter(new CaseInsensitive));
         $index->limit(10);
         $this->assertSame(10, Lucene::getResultSetLimit());
     }

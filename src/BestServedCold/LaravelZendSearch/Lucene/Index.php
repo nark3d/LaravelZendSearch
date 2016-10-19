@@ -2,8 +2,6 @@
 
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
-use ZendSearch\Lucene\Analysis\Analyzer\Analyzer;
-use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
 use ZendSearch\Lucene\Lucene;
 use ZendSearch\Exception\ExceptionInterface;
 use ZendSearch\Lucene\Index as LuceneIndex;
@@ -26,6 +24,21 @@ class Index
     protected $path;
 
     /**
+     * @var Filter
+     */
+    protected $filter;
+
+    /**
+     * Index constructor.
+     *
+     * @param Filter $filter
+     */
+    public function __construct(Filter $filter)
+    {
+        $this->filter = $filter;
+    }
+
+    /**
      * Open
      *
      * @param  string|boolean $path
@@ -37,9 +50,8 @@ class Index
     public function open($path = false, $forceCreate = true)
     {
         $this->path = $path ? $path : $this->path;
-        Analyzer::setDefault(new CaseInsensitive);
-
         $this->index = $this->createIndex($this->path(), $forceCreate);
+        $this->filter->setFilters();
         return $this;
     }
 

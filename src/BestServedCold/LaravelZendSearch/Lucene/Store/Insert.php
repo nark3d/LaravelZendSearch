@@ -71,10 +71,7 @@ class Insert
      */
     private function addUid(Document $document, $uid = false)
     {
-        if ($uid) {
-            $document->addField($this->field('uid', $uid));
-        }
-
+        $uid && is_string($uid) ? $document->addField($this->field('uid', $uid)) : null;
         return $document;
     }
 
