@@ -72,6 +72,9 @@ class Filter
      */
     public function setFilters()
     {
-        Analyzer::setDefault(self::$analyzer);
+        if (self::$analyzer instanceof AbstractCommon) {
+            Analyzer::setDefault(self::$analyzer);
+        }
+
     }
 }
