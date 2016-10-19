@@ -10,6 +10,7 @@ use ZendSearch\Lucene\Search\Query\Wildcard;
 use ZendSearch\Lucene\Search\Query\Term as QueryTerm;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Search\QueryParser;
+use ZendSearch\Lucene\Search\Query\Boolean as LuceneBoolean;
 
 /**
  * Class Search
@@ -43,7 +44,7 @@ class Search
     private $offset = 0;
 
     /**
-     * @var Boolean
+     * @var LuceneBoolean
      */
     private static $boolean;
 
@@ -276,7 +277,7 @@ class Search
     }
 
     /**
-     * @return boolean
+     * @return LuceneBoolean
      */
     public static function getLastQuery()
     {
