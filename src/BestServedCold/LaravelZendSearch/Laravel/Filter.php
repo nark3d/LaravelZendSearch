@@ -22,13 +22,13 @@ class Filter extends LuceneFilter
         self::addFilter(
             'StopWords',
             $filesystem->getRequire(
-                __DIR__ .
-                DIRECTORY_SEPARATOR .
-                'Filter' .
-                DIRECTORY_SEPARATOR .
-                'StopWord' .
-                DIRECTORY_SEPARATOR .
-                $language .
+                __DIR__.
+                DIRECTORY_SEPARATOR.
+                'Filter'.
+                DIRECTORY_SEPARATOR.
+                'StopWord'.
+                DIRECTORY_SEPARATOR.
+                $language.
                 '.php'
             )
         );
