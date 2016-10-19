@@ -19,6 +19,11 @@ class Insert
     private $document;
 
     /**
+     * @var float
+     */
+    private $defaultBoost = 1.0;
+
+    /**
      * Insert constructor.
      *
      * @param Document $document
@@ -33,15 +38,16 @@ class Insert
      *
      * @param  integer $id
      * @param  Index          $index
-     * @param  array          $fields     fields that are indexed
-     * @param  boolean|string $uid        unique identifier, if required
+     * @param  array          $fields      fields that are indexed
+     * @param  boolean|string $uid         unique identifier, if required
+     * @param  array          $boostFields
      * @return mixed
      */
-    public function insert(Index $index, $id, array $fields, $uid = false)
+    public function insert(Index $index, $id, array $fields, $uid = false, array $boostFields = [])
     {
         $this->document->addField($this->field('xref_id', $id));
         $this->document = $this->addUid($this->document, $uid);
-        $this->document = $this->addFields($this->document, $fields);
+        $this->document = $this->addFields($this->document, $fields, $boostFields);
         return $index->get()->addDocument($this->document);
     }
 
@@ -51,9 +57,11 @@ class Insert
      * @param  string         $type
      * @return Field
      */
-    private function field($field, $value, $type = 'keyword')
+    private function field($field, $value, $type = 'keyword', $boost = null)
     {
-        return Field::$type($field, strtolower(strip_tags($value)));
+        $field = Field::$type($field, strtolower(strip_tags($value)));
+        $field->boost = $boost ?: $this->defaultBoost;
+        return $field;
     }
 
     /**
@@ -70,14 +78,28 @@ class Insert
     /**
      * @param  Document $document
      * @param  array    $fields
+     * @param  array    $boostFields
      * @return Document
      */
-    private function addFields(Document $document, array $fields)
+    private function addFields(Document $document, array $fields, array $boostFields = [])
     {
         foreach ($fields as $field => $text) {
-            $document->addField($this->field($field, $text, 'text'));
+            $document->addField($this->field($field, $text, 'text', $this->boost($field, $boostFields)));
         }
 
         return $document;
+    }
+
+    /**
+     * @param  $field
+     * @param  array      $boostFields
+     * @return mixed|null
+     */
+    private function boost($field, array $boostFields = [])
+    {
+        if (empty($boostFields)) {
+            return null;
+        }
+        return array_key_exists($field, $boostFields) ? $boostFields[$field] : null;
     }
 }

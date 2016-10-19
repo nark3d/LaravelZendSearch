@@ -17,6 +17,11 @@ class DummyModel extends Model
         self::setSearchFields(['some', 'fields']);
     }
 
+    public static function boostFields()
+    {
+        self::setBoostFields(['some' => 0.8, 'fields' => 1.0]);
+    }
+
     public function whereIn($key, array $ids)
     {
         return $this;

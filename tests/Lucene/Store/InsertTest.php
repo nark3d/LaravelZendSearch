@@ -10,15 +10,27 @@ use ZendSearch\Lucene\Document;
 
 class InsertTest extends TestCase
 {
-    public function testInsert()
+    private $insert;
+    private $index;
+
+    public function setUp()
     {
-        $index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
+        $this->index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('addDocument')->willReturn(null);
-        $index->method('get')->willReturn($luceneIndex);
+        $this->index->method('get')->willReturn($luceneIndex);
         $document = $this->getMockBuilder(Document::class)->disableOriginalConstructor()->getMock();
-        $insert = new Insert($document);
+        $this->insert = new Insert($document);
 
-        $this->assertNull($insert->insert($index, 1, ['some', 'shit'], 'someUid'));
+    }
+    public function testInsert()
+    {
+        $this->assertNull($this->insert->insert($this->index, 1, ['some', 'shit'], 'someUid'));
+    }
+
+    public function testBoost()
+    {
+        $this->assertEquals(0.8, $this->reflectionMethod($this->insert, 'boost', ['value', ['value' => 0.8]]));
+        $this->assertNull($this->reflectionMethod($this->insert, 'boost', ['bob', ['mary' => 0.8]]));
     }
 }

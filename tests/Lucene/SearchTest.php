@@ -77,6 +77,12 @@ final class SearchTest extends TestCase
         $this->assertAttributeEquals(100, 'limit', $this->search);
     }
 
+    public function testOffset()
+    {
+        $this->search->offset(15);
+        $this->assertAttributeEquals(15, 'offset', $this->search);
+    }
+
     public function testPath()
     {
         $this->search->path('bobidy/bob/bob');
