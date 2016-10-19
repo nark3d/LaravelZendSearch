@@ -3,8 +3,9 @@
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\TestCase;
-use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
-use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8\CaseInsensitive as Utf8CaseInsensitive;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
+
+use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive as TextNumCaseInsensitive;
 
 class FilterTest extends TestCase
 {
@@ -22,7 +23,7 @@ class FilterTest extends TestCase
 
     public function testSetAnalyzer()
     {
-        Filter::setAnalyzer(new Utf8CaseInsensitive);
-        $this->assertInstanceOf(Utf8CaseInsensitive::class, Filter::getAnalyzer());
+        Filter::setAnalyzer(new TextNumCaseInsensitive);
+        $this->assertInstanceOf(TextNumCaseInsensitive::class, Filter::getAnalyzer());
     }
 }

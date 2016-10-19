@@ -4,7 +4,7 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 
 use BestServedCold\LaravelZendSearch\TestCase;
 
-use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
 use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Index as LuceneIndex;
