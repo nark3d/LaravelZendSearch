@@ -42,7 +42,7 @@ class Index extends LuceneIndex
     private function handleFilter($switch, $filter, Filesystem $filesystem)
     {
         $filter === 'StopWords' && !is_array($switch)
-            ? $this->stopWordFilter($filter, $switch, $filesystem)
+            ? $this->stopWordFilter($switch, $filesystem)
             : $this->filter($filter, $switch);
     }
 
