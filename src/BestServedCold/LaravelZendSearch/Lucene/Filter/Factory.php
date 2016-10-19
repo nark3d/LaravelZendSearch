@@ -35,9 +35,9 @@ class Factory
      */
     private static function supportedException($filter, array $supportedFilters)
     {
-        if ( ! array_key_exists($filter, $supportedFilters)) {
+        if (!array_key_exists($filter, $supportedFilters)) {
             throw new \InvalidArgumentException(
-                'Filter [' . $filter . '] is not supported by [' . self::class . ']'
+                'Filter ['.$filter.'] is not supported by ['.self::class.']'
             );
         }
     }

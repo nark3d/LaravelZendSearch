@@ -60,7 +60,7 @@ class Filter
             self::$analyzer = new CaseInsensitive;
         }
 
-        if (! in_array($filter, self::$filters )) {
+        if (!in_array($filter, self::$filters)) {
             self::$analyzer->addFilter(Factory::getFilter($filter, $option));
             self::$filters[] = $filter;
         }
