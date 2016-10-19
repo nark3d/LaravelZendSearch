@@ -58,7 +58,6 @@ class Search
     {
         $this->index = $index;
         $this->query = $query;
-        QueryParser::setDefaultEncoding('UTF-8');
     }
 
     /**

@@ -5,7 +5,8 @@ namespace BestServedCold\LaravelZendSearch\Lucene;
 use BestServedCold\LaravelZendSearch\Lucene\Filter\Factory;
 use ZendSearch\Lucene\Analysis\Analyzer\Analyzer;
 use ZendSearch\Lucene\Analysis\Analyzer\Common\AbstractCommon;
-use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
+use ZendSearch\Lucene\Search\QueryParser;
 
 /**
  * Class Filter
@@ -72,6 +73,7 @@ class Filter
      */
     public function setFilters()
     {
+        QueryParser::setDefaultEncoding('UTF-8');
         if (self::$analyzer instanceof AbstractCommon) {
             Analyzer::setDefault(self::$analyzer);
         }
