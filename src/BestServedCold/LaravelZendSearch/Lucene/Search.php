@@ -2,7 +2,6 @@
 
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
-use ZendSearch\Lucene\Analysis\TokenFilter\StopWords;
 use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
 use ZendSearch\Lucene\Search\Query\MultiTerm;
@@ -187,7 +186,7 @@ class Search
      * Provides an exact pattern match.
      *
      * @param  $string
-     * @param  null $field
+     * @param  string $field
      * @return $this
      */
     public function match($string, $field = null)
@@ -277,7 +276,7 @@ class Search
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public static function getLastQuery()
     {
