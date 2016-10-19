@@ -3,14 +3,17 @@
 namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
 use BestServedCold\LaravelZendSearch\Laravel\Index;
+use BestServedCold\LaravelZendSearch\Laravel\Filter;
 use BestServedCold\LaravelZendSearch\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Filesystem\Filesystem;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
 
 class OptimiseTest extends TestCase
 {
     public function testHandle()
     {
-        $index = new Index($this->app->config);
+        $index = new Index(new Filter(new CaseInsensitive), $this->app->config, new Filesystem);
         $index->open($this->indexPath);
 
         Artisan::call('search:optimise');

@@ -3,9 +3,12 @@
 namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
 use BestServedCold\LaravelZendSearch\Laravel\Index;
+use BestServedCold\LaravelZendSearch\Laravel\Filter;
 use BestServedCold\LaravelZendSearch\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\Filesystem;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
 
 class DestroyTest extends TestCase
 {
@@ -16,7 +19,7 @@ class DestroyTest extends TestCase
 There was nothing to destroy?  Try a rebuild.
 ", Artisan::output());
 
-        $index = new Index($this->app->config);
+        $index = new Index(new Filter(new CaseInsensitive), $this->app->config, new Filesystem);
         $index->open($this->indexPath);
         Artisan::call('search:destroy');
         $this->assertFalse(File::isDirectory($this->indexPath));

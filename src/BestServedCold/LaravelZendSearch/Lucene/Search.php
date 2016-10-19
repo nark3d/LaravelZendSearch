@@ -2,6 +2,7 @@
 
 namespace BestServedCold\LaravelZendSearch\Lucene;
 
+use ZendSearch\Lucene\Analysis\TokenFilter\StopWords;
 use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\Query\Fuzzy;
@@ -37,6 +38,8 @@ class Search
      * @var int $limit
      */
     private $limit = 25;
+
+    private $stopwords;
 
     /**
      * @var Boolean

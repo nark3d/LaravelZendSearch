@@ -4,9 +4,12 @@ namespace BestServedCold\LaravelZendSearch\Laravel\Console;
 
 use BestServedCold\LaravelZendSearch\Laravel\DummyModel;
 use BestServedCold\LaravelZendSearch\Laravel\Index;
+use BestServedCold\LaravelZendSearch\Laravel\Filter;
 use BestServedCold\LaravelZendSearch\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Filesystem\Filesystem;
+use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive;
 
 /**
  * Class RebuildTest
@@ -24,7 +27,7 @@ class RebuildTest extends TestCase
 
     public function testHandle()
     {
-        $index = new Index($this->app->config);
+        $index = new Index(new Filter(new CaseInsensitive), $this->app->config, new Filesystem);
         $index->open($this->indexPath);
         Artisan::call('search:rebuild', ['--verbose' => true]);
         $this->assertContains('Search engine rebuild complete', Artisan::output());
@@ -32,7 +35,7 @@ class RebuildTest extends TestCase
 
     public function testModelHasNoRecords()
     {
-        $index = new Index($this->app->config);
+        $index = new Index(new Filter(new CaseInsensitive), $this->app->config, new Filesystem);
         $index->open($this->indexPath);
 
         DB::table('dummy_models')->truncate();
@@ -47,7 +50,7 @@ class RebuildTest extends TestCase
 
     public function testNoOutput()
     {
-        $index = new Index($this->app->config);
+        $index = new Index(new Filter(new CaseInsensitive), $this->app->config, new Filesystem);
         $index->open($this->indexPath);
         Artisan::call('search:rebuild');
         $this->assertEquals('', Artisan::output());
