@@ -112,8 +112,22 @@ class Search
      */
     public function raw($string)
     {
-        $this->query->add(QueryParser::parse($string));
+        $this->query->add(QueryParser::parse($this->prepareString($string)));
         return $this;
+    }
+
+    /**
+     * Prepare String
+     *
+     * We want to keep everything clean and lowercase here.  If you really want case sensitive
+     * pattern matching, fork and code it...
+     *
+     * @param $string
+     * @return string
+     */
+    private function prepareString($string)
+    {
+        return strtolower(strip_tags($string));
     }
 
     /**
@@ -125,7 +139,7 @@ class Search
      */
     public function phrase($string, $field = null, $offsets = null)
     {
-        $this->query->add(new Phrase(explode(' ', $string), $offsets, $field));
+        $this->query->add(new Phrase(explode(' ', $this->prepareString($string)), $offsets, $field));
         return $this;
     }
 
@@ -147,7 +161,7 @@ class Search
      */
     protected function indexTerm($string, $field = null)
     {
-        return new Term(strtolower($string), $field);
+        return new Term($this->prepareString($string), $field);
     }
 
     /**
