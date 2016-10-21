@@ -21,8 +21,8 @@ class InsertTest extends TestCase
         $this->index->method('get')->willReturn($luceneIndex);
         $document = $this->getMockBuilder(Document::class)->disableOriginalConstructor()->getMock();
         $this->insert = new Insert($document);
-
     }
+
     public function testInsert()
     {
         $this->assertNull($this->insert->insert($this->index, 1, ['some', 'shit'], 'someUid'));
@@ -32,5 +32,10 @@ class InsertTest extends TestCase
     {
         $this->assertEquals(0.8, $this->reflectionMethod($this->insert, 'boost', ['value', ['value' => 0.8]]));
         $this->assertNull($this->reflectionMethod($this->insert, 'boost', ['bob', ['mary' => 0.8]]));
+    }
+
+    public function testGetLastInsert()
+    {
+        $this->assertInstanceOf(Document::class, Insert::getLastInsert());
     }
 }

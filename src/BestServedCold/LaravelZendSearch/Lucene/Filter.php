@@ -65,7 +65,6 @@ class Filter
             self::$analyzer->addFilter(Factory::getFilter($filter, $option));
             self::$filters[] = $filter;
         }
-
     }
 
     /**
@@ -78,5 +77,13 @@ class Filter
             Analyzer::setDefault(self::$analyzer);
         }
 
+    }
+
+    /**
+     * @return array
+     */
+    public static function getFilters()
+    {
+        return self::$filters;
     }
 }

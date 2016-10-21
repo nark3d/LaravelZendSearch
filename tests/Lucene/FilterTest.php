@@ -6,6 +6,7 @@ use BestServedCold\LaravelZendSearch\TestCase;
 use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
 
 use ZendSearch\Lucene\Analysis\Analyzer\Common\TextNum\CaseInsensitive as TextNumCaseInsensitive;
+use ZendSearch\Lucene\Analysis\TokenFilter\ShortWords;
 
 class FilterTest extends TestCase
 {
@@ -25,5 +26,10 @@ class FilterTest extends TestCase
     {
         Filter::setAnalyzer(new TextNumCaseInsensitive);
         $this->assertInstanceOf(TextNumCaseInsensitive::class, Filter::getAnalyzer());
+    }
+
+    public function testGetFilters()
+    {
+        $this->assertTrue(is_array(Filter::getFilters()));
     }
 }

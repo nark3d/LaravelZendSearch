@@ -14,7 +14,9 @@ class Index extends LuceneIndex
 {
     /**
      * Index constructor.
+     * @param Filter     $filter
      * @param Repository $config
+     * @param Filesystem $filesystem
      */
     public function __construct(Filter $filter, Repository $config, Filesystem $filesystem)
     {
@@ -25,7 +27,8 @@ class Index extends LuceneIndex
     }
 
     /**
-     * @param array $filters
+     * @param array      $filters
+     * @param Filesystem $filesystem
      */
     private function addFilters(array $filters = [], Filesystem $filesystem)
     {
@@ -52,7 +55,7 @@ class Index extends LuceneIndex
      */
     private function filter($filter, $switch)
     {
-        Filter::addFilter($filter, $switch === true ? [] : [$switch]);
+        Filter::addFilter($filter, $switch === true ? null : [$switch]);
     }
 
     /**

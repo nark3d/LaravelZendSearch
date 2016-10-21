@@ -24,6 +24,11 @@ class Insert
     private $defaultBoost = 1.0;
 
     /**
+     * @var null|Document
+     */
+    private static $lastInsert = null;
+
+    /**
      * Insert constructor.
      *
      * @param Document $document
@@ -48,7 +53,16 @@ class Insert
         $this->document->addField($this->field('xref_id', $id));
         $this->document = $this->addUid($this->document, $uid);
         $this->document = $this->addFields($this->document, $fields, $boostFields);
+        self::$lastInsert = $this->document;
         return $index->get()->addDocument($this->document);
+    }
+
+    /**
+     * @return null|Document
+     */
+    public static function getLastInsert()
+    {
+        return self::$lastInsert;
     }
 
     /**
