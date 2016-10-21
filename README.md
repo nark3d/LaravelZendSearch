@@ -50,7 +50,7 @@ php artisan vendor:publish
 
 ### Indexing
 
-Simply add the ```SearchTrait``` and use it in the models you want to use:
+Add the ```SearchTrait``` and use it in the models you want to use:
 
 ```php
 
@@ -68,13 +68,26 @@ class User extends Model
 Then add the method ```searchFields()``` and populate it with the fields you want to be indexed:
 
 ```php
+// ...
     public static function searchFields()
     {
         self::setSearchFields(['some', 'fields']);
     }
+// ...
 ```
 
-And away you go, your index will build automatically from there.
+If you want to "boost" fields, then add the following method:
+
+```php
+// ...
+    public static function boostFields()
+    {
+        self::setBoostFields(['some' => 0.8, 'fields' => 1.0]);
+    }
+// ...
+```
+
+The index will build automatically from there.
 
 #### Relations
 
@@ -82,7 +95,7 @@ If you want to index relations, make sure you create your ```getRelationAttribut
 
 ### Building
 
-If you have existing data or have changed your search fields, you can simply rebuild the index from scratch:
+If you have existing data or have changed your search fields, you can rebuild the index from scratch:
 
 ```shell
 php artisan search:rebuild --verbose
@@ -126,7 +139,7 @@ $ids = $search->hits();
 // and or, get your eloquent collection
 $result = $search->get();
 
-// Or just chain it:
+// Or chain it:
 $result = User::search()->where('term', 'field')->limit(15)->offset(10)->get();
 ```
 
@@ -151,17 +164,40 @@ $search->term('complete_term', 'field');
 BestServedCold\LaravelZendSearch\Lucene\Search::getLastQuery()->__toString();
 ```
 
+## Filters
+
+There are two basic filters implemented in the configuration which you can override, StopWords and ShortWords.  You can, however, change both the filters and the analyzer manually to preset ZendSearch classes or custom classes:
+
+```php
+BestServedCold\LaravelZendSearch\Lucene\Filter::setAnalyzer(
+    new ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8Num\CaseInsensitive;
+);
+
+BestServedCold\LaravelZendSearch\Lucene\Filter::addFilter(
+    new ZendSearch\Lucene\Analysis\TokenFilter\LowerCaseUtf8;
+);
+```
+
+## Helpers
+
+To assist in debugging, there are a few helpers which can assist:
+
+```php
+// Returns the last ZendSearch\Lucene\Document inserted.
+var_dump(BestServedCold\LaravelZendSearch\Lucene\Store::getLastInsert());
+
+// Returns the current set of filters or analyzer
+var_dump(BestServedCold\LaravelZendSearch\Lucene::getFilters());
+var_dump(BestServedCold\LaravelZendSearch\Lucene::getAnalyzer());
+
+// Returns the last ZendSearch\Lucene\Search\Query\Boolean object to interrogate.
+var_dump(BestServedCold\LaravelZendSearch\Lucene::getLastQuery()->__toString());
+```
+
 ## Features to come
 
-This is my first iteration and I've made it mainly for my own use on another project, but I'll be adding the following in due course:
+This is the first stable version which I've made mainly for my own use on another project.  I will add the following in due course though.
 
-* Boosting configuration within the model
-* Stopwords and stemwords
 * Scheduled optimisation out of the box
-* Tidy up of the unit tests, they're a bit messy at the moment
 * Option passthrough added for Wildcard, Phrase, Fuzzy
 * Add in highlighting options
-
-## Disclaimer
-
-This is still a beta package, so exercise caution until the first stable release.  Please do raise issues or feature requests and I'll do my best to resolve.
