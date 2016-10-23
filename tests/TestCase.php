@@ -11,6 +11,10 @@ class TestCase extends Orchestra
     public function setUp()
     {
         parent::setUp();
+        // Laravel 5.3 bug with Arr work around.
+        if (! defined('ARRAY_FILTER_USE_BOTH')) {
+            define('ARRAY_FILTER_USE_BOTH', true);
+        }
         $this->indexPath =  $this->indexPath . DIRECTORY_SEPARATOR . 'tempIndex';
     }
 
