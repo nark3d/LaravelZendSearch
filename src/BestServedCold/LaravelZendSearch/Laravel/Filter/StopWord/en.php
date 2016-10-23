@@ -379,7 +379,6 @@ return [
 'until',
 'up',
 'upon',
-'us',
 'use',
 'used',
 'uses',
