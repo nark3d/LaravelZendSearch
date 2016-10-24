@@ -4,7 +4,7 @@ return [
     'index' => [
         'path' => storage_path('app').'/laravelzendsearch/index'
     ],
-    'modelPath' => app_path(),
+    'modelPath' => app('path'),
     'language' => 'en',
     'filters' => [
         'StopWords' => 'en',

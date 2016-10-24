@@ -21,7 +21,10 @@ class Index extends LuceneIndex
     public function __construct(Filter $filter, Repository $config, Filesystem $filesystem)
     {
         $this->setPath($config->get('search.index.path'));
-        $this->addFilters($config->get('search.filters'), $filesystem);
+
+        if ($config->get('search.filters')) {
+            $this->addFilters($config->get('search.filters'), $filesystem);
+        }
 
         parent::__construct($filter);
     }
