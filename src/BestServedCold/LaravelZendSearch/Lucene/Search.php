@@ -127,7 +127,7 @@ class Search
      */
     private function prepareString($string)
     {
-        return strtolower(strip_tags($string));
+        return is_string($string) ? strtolower(strip_tags($string)) : $string;
     }
 
     /**
@@ -253,11 +253,12 @@ class Search
     /**
      * @return mixed
      */
-    public function hits()
+    public function hits($forEloquent = true)
     {
         $index = $this->index->limit($this->limit + $this->offset)->open($this->path)->get();
         self::$boolean = $this->query->getBoolean();
-        return $this->slice($this->mapIds($index->find(self::$boolean)));
+        $hits = $index->find(self::$boolean);
+        return $forEloquent ? $this->slice($this->mapIds($hits)) : $hits;
     }
 
     /**
