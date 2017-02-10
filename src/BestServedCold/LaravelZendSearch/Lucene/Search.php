@@ -252,7 +252,7 @@ class Search
 
     /**
      * @param  boolean $forEloquent
-     * @return mixed
+     * @return array
      */
     public function hits($forEloquent = true)
     {
@@ -279,7 +279,7 @@ class Search
 
     /**
      * @param  array|QueryHit $array
-     * @return mixed
+     * @return array
      */
     private function mapIds($array)
     {
