@@ -5,6 +5,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/best-served-cold/laravel-zendsearch.svg)](https://packagist.org/packages/best-served-cold/laravel-zendsearch)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d042f6a1-0877-441c-92b7-bb5fe51d6466/mini.png)](https://insight.sensiolabs.com/projects/d042f6a1-0877-441c-92b7-bb5fe51d6466)
 
+
 # LaravelZendSearch
 A fast implementation of [ZendSearch](http://zf2.readthedocs.io/en/latest/tutorials/lucene.intro.html) hooking into Laravel eloquent.  Utilise the power of Lucene without installing a secondary service such as Elasticsearch or Solr. 
 

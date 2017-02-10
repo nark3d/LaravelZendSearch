@@ -67,6 +67,7 @@ class Store
         $boostFields = []
     ) {
         $deleteFirst ? $this->delete($index, $id, $uid) : null;
+        $index->close();
         return $this->insert->insert($index, $id, $fields, $uid, $boostFields);
     }
 }

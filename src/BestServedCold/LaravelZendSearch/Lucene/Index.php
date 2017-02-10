@@ -56,6 +56,15 @@ class Index
     }
 
     /**
+     * @return $this
+     */
+    public function close()
+    {
+        $this->index = false;
+        return $this;
+    }
+
+    /**
      * @param integer $limit
      * @return $this
      */
