@@ -63,7 +63,7 @@ class Search extends LuceneSearch
 
         $this->match(base64_encode($this->uid), 'uid');
 
-        $this->hits = parent::hits();
+        $this->hits = parent::hits($forEloquent);
         return $this->hits;
     }
 
