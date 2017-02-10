@@ -50,11 +50,12 @@ class Insert
      */
     public function insert(Index $index, $id, array $fields, $uid = false, array $boostFields = [])
     {
-        $this->document->addField($this->field('xref_id', $id));
+        $this->document->addField($this->field('xref_id', (int) $id));
         $this->document = $this->addUid($this->document, $uid);
         $this->document = $this->addFields($this->document, $fields, $boostFields);
         self::$lastInsert = $this->document;
-        return $index->get()->addDocument($this->document);
+        $index->open()->get()->addDocument($this->document);
+        $index->get()->commit();
     }
 
     /**

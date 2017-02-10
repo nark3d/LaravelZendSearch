@@ -18,6 +18,7 @@ class InsertTest extends TestCase
         $this->index = $this->getMockBuilder(Index::class)->disableOriginalConstructor()->getMock();
         $luceneIndex = $this->getMockBuilder(LuceneIndex::class)->disableOriginalConstructor()->getMock();
         $luceneIndex->method('addDocument')->willReturn(null);
+        $this->index->method('open')->willReturn($this->index);
         $this->index->method('get')->willReturn($luceneIndex);
         $document = $this->getMockBuilder(Document::class)->disableOriginalConstructor()->getMock();
         $this->insert = new Insert($document);

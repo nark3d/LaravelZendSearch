@@ -43,7 +43,7 @@ class Search extends LuceneSearch
      */
     public function findId($id)
     {
-        $this->match($id, 'xref_id');
+        $this->match((int) $id, 'xref_id');
         return $this;
     }
 
@@ -55,7 +55,7 @@ class Search extends LuceneSearch
      *
      * @return mixed
      */
-    public function hits()
+    public function hits($forEloquent = true)
     {
         if (!empty($this->hits)) {
             return $this->hits;
@@ -63,7 +63,7 @@ class Search extends LuceneSearch
 
         $this->match(base64_encode($this->uid), 'uid');
 
-        $this->hits = parent::hits();
+        $this->hits = parent::hits($forEloquent);
         return $this->hits;
     }
 

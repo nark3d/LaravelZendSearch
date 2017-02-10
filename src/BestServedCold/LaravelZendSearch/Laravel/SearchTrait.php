@@ -110,8 +110,9 @@ trait SearchTrait
     {
         self::setup();
         $store = App::make(Store::class);
+        self::deleted(self::deleteCallback($store));
         self::saved(self::insertCallback($store));
-        self::deleting(self::deleteCallback($store));
+
     }
 
     /**
