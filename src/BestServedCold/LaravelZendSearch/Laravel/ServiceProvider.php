@@ -46,7 +46,7 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->publishes([__DIR__.'/../../../config/search.php' => app()->basePath() . '/config' . ('search.php'), ]);
+        $this->publishes([__DIR__.'/../../../config/search.php' => app()->basePath().'/config'.('search.php'), ]);
 
         $this->registerCommand(Rebuild::class);
         $this->registerCommand(Destroy::class);
