@@ -61,7 +61,7 @@ class Search extends LuceneSearch
             return $this->hits;
         }
 
-        $this->match($this->uid, 'uid');
+        $this->match(base64_encode($this->uid), 'uid');
 
         $this->hits = parent::hits();
         return $this->hits;
