@@ -251,6 +251,7 @@ class Search
     }
 
     /**
+     * @param  boolean $forEloquent
      * @return mixed
      */
     public function hits($forEloquent = true)

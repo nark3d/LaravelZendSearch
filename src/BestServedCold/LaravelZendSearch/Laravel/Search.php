@@ -53,6 +53,7 @@ class Search extends LuceneSearch
      * We store the hits, no point in running the query twice.  This also allows us to set the UID once for the model
      * table name.  A new search instance is required to run against another model.
      *
+     * @param  boolean $forEloquent
      * @return mixed
      */
     public function hits($forEloquent = true)

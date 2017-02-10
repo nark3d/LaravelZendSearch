@@ -145,8 +145,8 @@ $result = User::search()->where('term', 'field')->limit(15)->offset(10)->get();
 
 ### Deleting
 
-// Make sure you've got a collection like so
 ```php
+// Make sure you've got a collection like so
 User::search()->where('term', 'field')->first()->delete();
 ```
 ### Advanced
