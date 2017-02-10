@@ -32,7 +32,7 @@ class Delete
      * Delete
      *
      * @param  Index          $index
-     * @param  $id
+     * @param  integer $id
      * @param  string|boolean $uid
      * @return $this
      */
