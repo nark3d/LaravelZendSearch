@@ -22,6 +22,18 @@ trait SearchTrait
     private static $boostFields = [];
 
     /**
+     * @var bool
+     */
+    private static $ignoreInsertOnce = false;
+
+    /**
+     *
+     */
+    public static function ignoreInsertOnce()
+    {
+        self::$ignoreInsertOnce = true;
+    }
+    /**
      * Set up
      *
      * @throws \Exception
@@ -122,8 +134,12 @@ trait SearchTrait
     private static function insertCallback(Store $store)
     {
         return function(Model $model) use ($store) {
-            $store->model($model);
-            $store->insertModel($model);
+            if (self::$ignoreInsertOnce) {
+                self::$ignoreInsertOnce = false;
+            } else {
+                $store->model($model);
+                $store->insertModel($model);
+            }
         };
     }
 
